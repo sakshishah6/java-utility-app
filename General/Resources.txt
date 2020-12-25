@@ -2,3 +2,10 @@ Creating a GUI:
 
 https://www.youtube.com/watch?v=5o3fMLPY7qY
 
+Make a login GUI:
+
+https://www.youtube.com/watch?v=iE8tZ0hn2Ws
+
+Java Documentation on Swing:
+
+https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/package-summary.html
