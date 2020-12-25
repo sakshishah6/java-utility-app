@@ -21,9 +21,9 @@ public class GUI implements ActionListener{
       frame = new JFrame(); //this is the window
       panel = new JPanel();
       button = new JButton("Click Me!!");
-      label = new JLabel("Number of clicks:");
+      label = new JLabel();
       
-      label.setSize(100, 100);
+      label.setBounds(50, 50, 100, 50);
       button.addActionListener(this);
       
       panel.setBorder(BorderFactory.createEmptyBorder(200,  200,  200,  200));
