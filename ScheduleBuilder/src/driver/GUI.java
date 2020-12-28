@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,24 +18,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class GUI {
-    int count = 0;
-    private JLabel calendarLabel;
-    private JLabel timerLabel;
-    private JLabel scheduleLabel;
-    private JLabel notificationLabel;
-    private JButton notificationButton;
-    private JButton timerButton;
-    private JButton calendarButton;
-    private JButton scheduleButton;
-    private JFrame frame;
-    private JPanel panel;
     
     public GUI() {
+    	
       //Creating the Frame
-      JFrame frame = new JFrame("Chat Frame");
+      JFrame frame = new JFrame("Schedule Builder");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setSize(300, 300);
-
 
       //Creating the MenuBar and adding components
       JMenuBar mb = new JMenuBar();
@@ -61,12 +51,15 @@ public class GUI {
       panel.add(schedule);
 
       // Text Area at the Center
-      JTextArea ta = new JTextArea();
+      //JTextArea ta = new JTextArea();
 
+      JLabel imgLabel = new JLabel(new ImageIcon("src/images/logo.png"));
+      panel.add(imgLabel);
+      
       //Adding Components to the frame.
       frame.getContentPane().add(BorderLayout.SOUTH, panel);
       frame.getContentPane().add(BorderLayout.NORTH, mb);
-      frame.getContentPane().add(BorderLayout.CENTER, ta);
+      frame.getContentPane().add(BorderLayout.CENTER, imgLabel);
       frame.setVisible(true);
 
     }
