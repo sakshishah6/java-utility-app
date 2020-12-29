@@ -140,7 +140,7 @@ public class ScheduleBuilderGUI {
 	
 	// Schedule
 	public static void schedule(JPanel p2) {
-		p2_1.setLayout(new GridLayout(0, 5));
+		p2.setLayout(new GridLayout(0, 5));
 		p2.add(new JLabel("Schedule"));
 	}
 	
