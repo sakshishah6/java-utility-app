@@ -1,7 +1,7 @@
 package driver;
 
 import runner.CalendarFeature;
-
+import runner.ScheduleFeature;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -24,8 +24,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JScrollBar;
 
 public class ScheduleBuilderGUI {
@@ -113,8 +115,71 @@ public class ScheduleBuilderGUI {
 	
 	// Schedule
 	public static void schedule(JPanel p2) {
-		p2.setLayout(new GridLayout(0, 5));
-		p2.add(new JLabel("Schedule"));
+	  ScheduleFeature scheduleF = new ScheduleFeature();
+     
+      //create method in scheduleFeature to get table datas
+      String[][] dataTimes = {
+          {"5-6"},
+          {"6-7"},
+          {"7-8"},
+          {"8-9"},
+          {"9-10"},
+          {"10-11"},
+          {"11-12"},
+          {"12-1"},
+          {"1-2"},
+          {"2-3"},
+          {"3-4"},
+          {"4-5"},
+          {"5-6"},
+          {"6-7"},
+          {"7-8"},
+          {"8-9"},
+          {"9-10"},
+          {"10-11"},
+          {"11-12"},
+          };
+      
+      String[][] dataTasks = {
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+          {new String()},
+      };
+      
+       String[] columnTime = {"Time"};
+       String[] columnTasks = {"Tasks"};
+
+       JTable tableTimes = new JTable(dataTimes, columnTime);
+       tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+       tableTimes.setRowSelectionAllowed(false);
+       tableTimes.setEnabled(false);
+       
+       p2.setLayout(new BorderLayout());
+       p2.add(tableTimes.getTableHeader(), BorderLayout.PAGE_START);
+       p2.add(tableTimes, BorderLayout.WEST);
+        
+       JTable tableInput = new JTable(dataTasks, columnTasks);
+       tableInput.setRowSelectionAllowed(false);
+       tableInput.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+       
+       p2.add(tableInput.getTableHeader(), BorderLayout.PAGE_START);
+       p2.add(tableInput, BorderLayout.CENTER);
 	}
 	
 	
