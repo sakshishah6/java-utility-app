@@ -1,5 +1,7 @@
 package driver;
 
+import runner.CalendarFeature;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -27,7 +29,6 @@ import javax.swing.JTextField;
 import javax.swing.JScrollBar;
 
 public class ScheduleBuilderGUI {
-	private static JPanel p2_1;
 
 	public static void GUI() {
 		
@@ -91,7 +92,6 @@ public class ScheduleBuilderGUI {
 	
 	// Calendar
 	public static void calendar(JPanel p1) {
-		//p1.add(new JLabel("Calendar"));
 		p1.setLayout(new GridLayout(3, 1));
 		
 		JLabel dateLabel = new JLabel("Date: ");
@@ -105,6 +105,8 @@ public class ScheduleBuilderGUI {
 		timeLabel.setVerticalAlignment(JLabel.CENTER);
 		
 		Calendar cal = Calendar.getInstance();
+		
+		//CalendarFeature(cal);
 		
 		int month = cal.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
