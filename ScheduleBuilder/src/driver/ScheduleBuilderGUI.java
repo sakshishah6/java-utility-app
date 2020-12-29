@@ -49,8 +49,8 @@ public class ScheduleBuilderGUI {
 		calendar(p1);
 		
 		// Panel 2: Schedule
-		p2_1 = new JPanel();
-		schedule(p2_1);
+		JPanel p2 = new JPanel();
+		schedule(p2);
 
 		// Panel 3: Timer & Stopwatch
 		JPanel p3 = new JPanel();
@@ -63,10 +63,8 @@ public class ScheduleBuilderGUI {
 		// Add all panels to the tabbedPane & to frame
 		tabbedPane.addTab("Home Page", p0);
 		tabbedPane.addTab("Calendar", p1);
-		tabbedPane.addTab("Schedule", p2_1);
+		tabbedPane.addTab("Schedule", p2);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		p2_1.add(scrollBar);
 		tabbedPane.addTab("Timer & Stopwatch", p3);
 		tabbedPane.addTab("Settings", p4);
 
