@@ -34,7 +34,7 @@ public class ScheduleBuilderGUI {
 		// Create and set up the window.
 		final JFrame frame2 = new JFrame("Schedule Builder");
 
-		frame2.setSize(500, 300);
+		frame2.setSize(617, 571);
 		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame2.getContentPane().setLayout(new GridLayout(1, 1));
 
