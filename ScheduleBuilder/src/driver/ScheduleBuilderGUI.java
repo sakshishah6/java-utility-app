@@ -24,54 +24,12 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JScrollBar;
 
 public class ScheduleBuilderGUI {
+	private static JPanel p2_1;
 
 	public static void GUI() {
-		
-		// Creating the Frame
-		JFrame frame = new JFrame("Schedule Builder");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 300);
-
-		// Creating the MenuBar and adding components
-		JMenuBar mb = new JMenuBar();
-		JMenu m1 = new JMenu("File");
-		JMenu m2 = new JMenu("Help");
-		mb.add(m1);
-		mb.add(m2);
-		JMenuItem m11 = new JMenuItem("Open");
-		JMenuItem m22 = new JMenuItem("Save as");
-		JMenuItem m31 = new JMenuItem("HELP ME");
-		JMenuItem m32 = new JMenuItem("Settings");
-		m1.add(m11);
-		m1.add(m22);
-		m2.add(m31);
-		m2.add(m32);
-
-		// Creating the panel at bottom and adding components
-		JPanel panel = new JPanel(); // the panel is not visible in output
-		JButton timer = new JButton("Timer");
-		JButton calendar = new JButton("Calendar");
-		JButton schedule = new JButton("Schedule");
-		panel.add(timer);
-		panel.add(calendar);
-		panel.add(schedule);
-
-		JLabel imgLabel = new JLabel(new ImageIcon("src/images/logo.png"));
-		panel.add(imgLabel);
-
-		// Adding Components to the frame.
-		frame.getContentPane().add(BorderLayout.SOUTH, panel);
-		frame.getContentPane().add(BorderLayout.NORTH, mb);
-		frame.getContentPane().add(BorderLayout.CENTER, imgLabel);
-		frame.setVisible(true);
-
-	}
-
-	
-	// FRAME 2
-	public static void GUI2() {
 		
 		// Create and set up the window.
 		final JFrame frame2 = new JFrame("Schedule Builder");
@@ -91,8 +49,8 @@ public class ScheduleBuilderGUI {
 		calendar(p1);
 		
 		// Panel 2: Schedule
-		JPanel p2 = new JPanel();
-		schedule(p2);
+		p2_1 = new JPanel();
+		schedule(p2_1);
 
 		// Panel 3: Timer & Stopwatch
 		JPanel p3 = new JPanel();
@@ -105,11 +63,14 @@ public class ScheduleBuilderGUI {
 		// Add all panels to the tabbedPane & to frame
 		tabbedPane.addTab("Home Page", p0);
 		tabbedPane.addTab("Calendar", p1);
-		tabbedPane.addTab("Schedule", p2);
+		tabbedPane.addTab("Schedule", p2_1);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		p2_1.add(scrollBar);
 		tabbedPane.addTab("Timer & Stopwatch", p3);
 		tabbedPane.addTab("Settings", p4);
 
-		frame2.add(tabbedPane);
+		frame2.getContentPane().add(tabbedPane);
 		frame2.setVisible(true);
 	}
 	
@@ -121,7 +82,7 @@ public class ScheduleBuilderGUI {
 		JLabel logo = new JLabel(new ImageIcon("src/images/logo.png"));
 		p0.add(logo);
 		logo.setHorizontalAlignment(JLabel.CENTER);
-		logo.setVerticalAlignment(JLabel.CENTER);
+		logo.setVerticalAlignment(JLabel.BOTTOM);
 		
 		JLabel copyright = new JLabel("Copyright © 2020 Sakshi Shah & Sharar Noor");
 		p0.add(copyright);
@@ -181,8 +142,8 @@ public class ScheduleBuilderGUI {
 	
 	// Schedule
 	public static void schedule(JPanel p2) {
+		p2_1.setLayout(new GridLayout(0, 5));
 		p2.add(new JLabel("Schedule"));
-		p2.setLayout(new GridLayout(1, 1));
 	}
 	
 	
@@ -204,7 +165,6 @@ public class ScheduleBuilderGUI {
 	
 	public static void main(String[] args) {
 		GUI();
-		GUI2();
 	}
 
 }
