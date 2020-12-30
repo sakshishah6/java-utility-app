@@ -1,6 +1,5 @@
 package runner;
 
-import java.util.Random;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -64,17 +63,16 @@ public class ScheduleFeature extends Programs {
            time2 = 1;
          }
          
-         model.setValueAt((time1) + " - " + (time2),i,0);
+         model.setValueAt((time1) + ":00 - " + (time2) + ":00 ",i,0);
          
          time1 ++;
          time2 ++;
         }
        
+       table.getColumnModel().getColumn(1).setPreferredWidth(300);
+       table.setSelectionMode(0);
        return table;
       }
-      
-     
-      
       
 	  @Override
 	  public void runProgram() {
