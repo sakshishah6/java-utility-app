@@ -1,66 +1,79 @@
 package runner;
 
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.text.AttributedString;
+import java.util.Random;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class ScheduleFeature extends Programs {
+      
+      public JTable getTableModel() {
+        //THE TABLE
+        final JTable table=new JTable();
 
-      public String[][] getTableTimes() {
+        //THE MODEL OF OUR TABLE
+        DefaultTableModel model=new DefaultTableModel()
+        {
+          public Class<?> getColumnClass(int column)
+          {
+            switch(column)
+            {
+            case 0:
+              return String.class;
+            case 1:
+              return String.class;
+            case 2:
+              return Boolean.class;
+            default:
+              return String.class;
+            }
+          }
+          
+          @Override 
+          public boolean isCellEditable(int row, int column)
+          {
+            
+            if (column == 0) {
+              return false;
+            }
+            return true;
+              
+          }
+          
+        };
+
+        //ASSIGN THE MODEL TO TABLE
+        table.setModel(model);
+
+        model.addColumn("TIMES");
+        model.addColumn("TASKS");
+        model.addColumn("COMPLETED");
+    //
+//        //THE ROW
         
-        
-        String[][] dataTimes = {
-            {"TIMES"},
-            {"5-6"},
-            {"6-7"},
-            {"7-8"},
-            {"8-9"},
-            {"9-10"},
-            {"10-11"},
-            {"11-12"},
-            {"12-1"},
-            {"1-2"},
-            {"2-3"},
-            {"3-4"},
-            {"4-5"},
-            {"5-6"},
-            {"6-7"},
-            {"7-8"},
-            {"8-9"},
-            {"9-10"},
-            {"10-11"},
-            {"11-12"},
-            };
-        
-        return dataTimes;
+        int time1 = 5;
+        int time2 = 6;
+
+       for(int i=0;i<=19;i++)
+       {
+         model.addRow(new Object[0]);
+         
+         if (time1 == 13) {
+           time1 = 1;
+         }
+         if (time2 == 13) {
+           time2 = 1;
+         }
+         
+         model.setValueAt((time1) + " - " + (time2),i,0);
+         
+         time1 ++;
+         time2 ++;
+        }
+       
+       return table;
       }
       
-      public String[][] getTableTasks(){
-        String[][] dataTasks = {
-            {"TASKS"},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-            {new String()},
-        };
-        
-        return dataTasks;
-      }
+     
       
       
 	  @Override
