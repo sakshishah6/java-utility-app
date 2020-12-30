@@ -57,13 +57,7 @@ public class CalendarFeature extends Programs {
 			}
 		};
 		
-		clock.start();
-		
-		
-		
-
-
-		
+		clock.start();	
 	}
 	
 	public void runProgram() {
