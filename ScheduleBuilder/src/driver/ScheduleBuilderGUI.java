@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -165,28 +166,15 @@ public class ScheduleBuilderGUI {
 	// Schedule
 	public static void schedule(JPanel p2) {
 	  ScheduleFeature scheduleF = new ScheduleFeature();
-      
-      String[] columnTime = {"Time"};
-      String[] columnTasks = {"Tasks", "Completed"};
-     
-      //JTable tableTimes = new JTable(scheduleF.getTableTimes(), columnTime);
-      //tableTimes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
-      //tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      //tableTimes.setRowSelectionAllowed(false);
-      //tableTimes.setEnabled(false);
-      
+   
       p2.setLayout(new BorderLayout());
-      //p2.add(tableTimes.getTableHeader(), BorderLayout.PAGE_START);
       JTable newTable = scheduleF.getTableModel();
-      p2.add(new JScrollPane(newTable), BorderLayout.WEST);
-       
-      //JTable tableInput = new JTable(scheduleF.getTableTasks(), columnTasks);
-      //tableInput.setRowSelectionAllowed(false);
-      //tableInput.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+      p2.add(new JScrollPane(newTable), BorderLayout.CENTER);
+  
       p2.setBackground(Color.WHITE);
       p2.setOpaque(true);
-      //p2.add(tableInput, BorderLayout.CENTER);
+      
+      p2.add(new TextField(), BorderLayout.SOUTH);
       
       JButton clearField = new JButton("Clear Field");
       
@@ -196,14 +184,17 @@ public class ScheduleBuilderGUI {
         public void actionPerformed(ActionEvent arg0) {
           //GET SELECTED ROW
           newTable.removeEditor();
-          for(int i=1;i<newTable.getRowCount();i++)
+          newTable.removeColumnSelectionInterval(0, newTable.getColumnCount() - 1);
+          newTable.removeRowSelectionInterval(0, newTable.getRowCount() - 1);
+          for(int i=0;i<newTable.getRowCount();i++)
           {
             newTable.setValueAt(new String(),i, 1);
+            newTable.setValueAt(false, i, 2);
           }
         }
       });
       
-      p2.add(clearField, BorderLayout.SOUTH);
+      p2.add(clearField, BorderLayout.SOUTH);    
     }
     
 	// Timer
