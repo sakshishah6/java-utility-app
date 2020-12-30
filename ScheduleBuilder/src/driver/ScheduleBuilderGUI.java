@@ -165,9 +165,7 @@ public class ScheduleBuilderGUI {
           
        String[] columnTime = {"Time"};
        String[] columnTasks = {"Tasks"};
-
-       
-       
+      
        JTable tableTimes = new JTable(scheduleF.getTableTimes(), columnTime);
        tableTimes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
        tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -203,8 +201,7 @@ public class ScheduleBuilderGUI {
        
        p2.add(clearField, BorderLayout.SOUTH);
        
-	}
-	
+	}	
 	
 	// Timer
 	public static void timer(JPanel p3) {
@@ -222,9 +219,6 @@ public class ScheduleBuilderGUI {
 		p4.setBackground(Color.WHITE);
 		p4.setOpaque(true);
 	}
-	
-	
-	
 	
 	public static void main(String[] args) {
 		GUI();
