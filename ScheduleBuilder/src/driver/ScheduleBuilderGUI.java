@@ -34,6 +34,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JScrollBar;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ScheduleBuilderGUI {
 
@@ -94,6 +95,7 @@ public class ScheduleBuilderGUI {
 		
 		tabbedPane.addTab("Schedule", p2);
 		tabbedPane.addTab("Schedule", resizedTab2Icon, p2);
+
 		tabbedPane.setBackgroundAt(2, Color.WHITE);
 		
 		tabbedPane.addTab("Timer & Stopwatch", p3);
@@ -160,73 +162,47 @@ public class ScheduleBuilderGUI {
 	// Schedule
 	public static void schedule(JPanel p2) {
 	  ScheduleFeature scheduleF = new ScheduleFeature();
-     
-      //create method in scheduleFeature to get table datas
-      String[][] dataTimes = {
-          {"5-6"},
-          {"6-7"},
-          {"7-8"},
-          {"8-9"},
-          {"9-10"},
-          {"10-11"},
-          {"11-12"},
-          {"12-1"},
-          {"1-2"},
-          {"2-3"},
-          {"3-4"},
-          {"4-5"},
-          {"5-6"},
-          {"6-7"},
-          {"7-8"},
-          {"8-9"},
-          {"9-10"},
-          {"10-11"},
-          {"11-12"},
-          };
-      
-      String[][] dataTasks = {
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-          {new String()},
-      };
-      
+          
        String[] columnTime = {"Time"};
        String[] columnTasks = {"Tasks"};
 
-       JTable tableTimes = new JTable(dataTimes, columnTime);
-       tableTimes.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+       
+       
+       JTable tableTimes = new JTable(scheduleF.getTableTimes(), columnTime);
+       tableTimes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
        tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
        tableTimes.setRowSelectionAllowed(false);
        tableTimes.setEnabled(false);
        
        p2.setLayout(new BorderLayout());
-       p2.add(tableTimes.getTableHeader(), BorderLayout.PAGE_START);
+       //p2.add(tableTimes.getTableHeader(), BorderLayout.PAGE_START);
        p2.add(tableTimes, BorderLayout.WEST);
         
-       JTable tableInput = new JTable(dataTasks, columnTasks);
+       JTable tableInput = new JTable(scheduleF.getTableTasks(), columnTasks);
        tableInput.setRowSelectionAllowed(false);
        tableInput.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
        
        p2.setBackground(Color.WHITE);
        p2.setOpaque(true);
-       p2.add(tableInput.getTableHeader(), BorderLayout.PAGE_START);
        p2.add(tableInput, BorderLayout.CENTER);
+       
+       JButton clearField = new JButton("Clear Field");
+       
+       clearField.addActionListener(new ActionListener() {
+
+         @Override
+         public void actionPerformed(ActionEvent arg0) {
+           //GET SELECTED ROW
+           tableInput.removeEditor();
+           for(int i=1;i<tableInput.getRowCount();i++)
+           {
+             tableInput.setValueAt(new String(),i, 0);
+           }
+         }
+       });
+       
+       p2.add(clearField, BorderLayout.SOUTH);
+       
 	}
 	
 	
