@@ -35,6 +35,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -166,25 +167,26 @@ public class ScheduleBuilderGUI {
 	  ScheduleFeature scheduleF = new ScheduleFeature();
       
       String[] columnTime = {"Time"};
-      String[] columnTasks = {"Tasks"};
+      String[] columnTasks = {"Tasks", "Completed"};
      
-      JTable tableTimes = new JTable(scheduleF.getTableTimes(), columnTime);
-      tableTimes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
-      tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      tableTimes.setRowSelectionAllowed(false);
-      tableTimes.setEnabled(false);
+      //JTable tableTimes = new JTable(scheduleF.getTableTimes(), columnTime);
+      //tableTimes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
+      //tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      //tableTimes.setRowSelectionAllowed(false);
+      //tableTimes.setEnabled(false);
       
       p2.setLayout(new BorderLayout());
       //p2.add(tableTimes.getTableHeader(), BorderLayout.PAGE_START);
-      p2.add(tableTimes, BorderLayout.WEST);
+      JTable newTable = scheduleF.getTableModel();
+      p2.add(new JScrollPane(newTable), BorderLayout.WEST);
        
-      JTable tableInput = new JTable(scheduleF.getTableTasks(), columnTasks);
-      tableInput.setRowSelectionAllowed(false);
-      tableInput.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      
+      //JTable tableInput = new JTable(scheduleF.getTableTasks(), columnTasks);
+      //tableInput.setRowSelectionAllowed(false);
+      //tableInput.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
       p2.setBackground(Color.WHITE);
       p2.setOpaque(true);
-      p2.add(tableInput, BorderLayout.CENTER);
+      //p2.add(tableInput, BorderLayout.CENTER);
       
       JButton clearField = new JButton("Clear Field");
       
@@ -193,10 +195,10 @@ public class ScheduleBuilderGUI {
         @Override
         public void actionPerformed(ActionEvent arg0) {
           //GET SELECTED ROW
-          tableInput.removeEditor();
-          for(int i=1;i<tableInput.getRowCount();i++)
+          newTable.removeEditor();
+          for(int i=1;i<newTable.getRowCount();i++)
           {
-            tableInput.setValueAt(new String(),i, 0);
+            newTable.setValueAt(new String(),i, 1);
           }
         }
       });
