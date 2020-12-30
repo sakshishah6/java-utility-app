@@ -7,9 +7,13 @@ import runner.TimerFeature;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,6 +23,7 @@ import java.util.Calendar;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -206,32 +211,109 @@ public class ScheduleBuilderGUI {
     
 	// Timer
 	public static void timer(JPanel p3) {
-		p3.setLayout(new GridLayout(8, 2));
+		
 		p3.setBackground(Color.WHITE);
 		p3.setOpaque(true);
+		p3.setLayout(new GridLayout(8, 5, 2, 2));
 		
 		JLabel options = new JLabel("Select an option:");
-		p3.add(options);
 		options.setHorizontalAlignment(JLabel.LEFT);
 		options.setVerticalAlignment(JLabel.CENTER);
+		p3.add(options);
+		
+		p3.add(new JLabel("")); 
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		
+		ButtonGroup G = new ButtonGroup();
 		
 		JRadioButton timerRadioBtn = new JRadioButton("Timer");
-		p3.add(timerRadioBtn);
 		timerRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
 		timerRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		timerRadioBtn.setBackground(Color.WHITE);
+		p3.add(timerRadioBtn);
+		
+		p3.add(new JLabel("")); 
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
 		
 		JRadioButton stopwatchRadioBtn = new JRadioButton("Stopwatch");
-		p3.add(stopwatchRadioBtn);
 		stopwatchRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
 		stopwatchRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		stopwatchRadioBtn.setBackground(Color.WHITE);
+		p3.add(stopwatchRadioBtn);
+		
+		p3.add(new JLabel("")); 
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		
+		G.add(timerRadioBtn);
+		G.add(stopwatchRadioBtn);
 		
 		JButton selectButton = new JButton("Select");
-		p3.add(selectButton);
-		selectButton.setHorizontalAlignment(JButton.LEFT);
+		selectButton.setHorizontalAlignment(JButton.CENTER);
 		selectButton.setVerticalAlignment(JButton.CENTER);
+		p3.add(selectButton);
+		p3.add(new JLabel("")); 
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		
+		p3.add(new JLabel(""));
+		p3.add(new JLabel("")); 
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		
+		p3.add(new JLabel(""));
+		JLabel timerLabel = new JLabel("TIMER");
+		timerLabel.setHorizontalAlignment(JButton.CENTER);
+		timerLabel.setVerticalAlignment(JButton.CENTER);
+		p3.add(timerLabel);
+		
+		p3.add(new JLabel(""));
+		
+		JLabel stopwatchLabel = new JLabel("STOPWATCH");
+		stopwatchLabel.setHorizontalAlignment(JButton.CENTER);
+		stopwatchLabel.setVerticalAlignment(JButton.CENTER);
+		p3.add(stopwatchLabel);
+		
+		p3.add(new JLabel(""));
+		
+		//start, stop and reset btns will become visible when select button is clicked (regardless of which one is selected)
+		//timer and stopwatch methods will call on the same three methods associated with these buttons
+		
+		p3.add(new JLabel(""));
+		p3.add(new JLabel("")); // add actual timer 
+		p3.add(new JLabel(""));
+		p3.add(new JLabel("")); //add actual stopwatch
+		p3.add(new JLabel(""));
+		
+		JButton startButton = new JButton("START");
+		startButton.setHorizontalAlignment(JButton.CENTER);
+		startButton.setVerticalAlignment(JButton.CENTER);
+		p3.add(startButton);
+		
+		p3.add(new JLabel(""));
+		
+		JButton stopButton = new JButton("STOP");
+		stopButton.setHorizontalAlignment(JButton.CENTER);
+		stopButton.setVerticalAlignment(JButton.CENTER);
+		p3.add(stopButton);
+		
+		p3.add(new JLabel(""));
+		
+		JButton resetButton = new JButton("RESET");
+		resetButton.setHorizontalAlignment(JButton.CENTER);
+		resetButton.setVerticalAlignment(JButton.CENTER);
+		p3.add(resetButton);
 		
 		TimerFeature timerF = new TimerFeature();
 		timerF.runProgram();
+		
 	}
 	
 	// Settings
