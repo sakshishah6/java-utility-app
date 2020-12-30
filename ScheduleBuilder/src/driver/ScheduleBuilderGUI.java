@@ -2,6 +2,8 @@ package driver;
 
 import runner.CalendarFeature;
 import runner.ScheduleFeature;
+import runner.TimerFeature;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -26,6 +28,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -150,10 +153,10 @@ public class ScheduleBuilderGUI {
 		timeLabel.setHorizontalAlignment(JLabel.LEFT);
 		timeLabel.setVerticalAlignment(JLabel.CENTER);
 		
-		CalendarFeature calendarRun = new CalendarFeature();
-		calendarRun.getDate(dateLabel);
-		calendarRun.getTime(timeLabel);
-		calendarRun.runProgram();
+		CalendarFeature calendarF = new CalendarFeature();
+		calendarF.getDate(dateLabel);
+		calendarF.getTime(timeLabel);
+		calendarF.runProgram();
 	}
 	
 	
@@ -182,7 +185,7 @@ public class ScheduleBuilderGUI {
           {"9-10"},
           {"10-11"},
           {"11-12"},
-          };
+      };
       
       String[][] dataTasks = {
           {new String()},
@@ -232,10 +235,32 @@ public class ScheduleBuilderGUI {
 	
 	// Timer
 	public static void timer(JPanel p3) {
-		p3.add(new JLabel("Timer & Stopwatch"));
-		p3.setLayout(new GridLayout(1, 1));
+		p3.setLayout(new GridLayout(8, 2));
 		p3.setBackground(Color.WHITE);
 		p3.setOpaque(true);
+		
+		JLabel options = new JLabel("Select an option:");
+		p3.add(options);
+		options.setHorizontalAlignment(JLabel.LEFT);
+		options.setVerticalAlignment(JLabel.CENTER);
+		
+		JRadioButton timerRadioBtn = new JRadioButton("Timer");
+		p3.add(timerRadioBtn);
+		timerRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
+		timerRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		
+		JRadioButton stopwatchRadioBtn = new JRadioButton("Stopwatch");
+		p3.add(stopwatchRadioBtn);
+		stopwatchRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
+		stopwatchRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		
+		JButton selectButton = new JButton("Select");
+		p3.add(selectButton);
+		selectButton.setHorizontalAlignment(JButton.LEFT);
+		selectButton.setVerticalAlignment(JButton.CENTER);
+		
+		TimerFeature timerF = new TimerFeature();
+		timerF.runProgram();
 	}
 	
 	
