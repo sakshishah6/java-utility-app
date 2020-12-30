@@ -7,7 +7,6 @@ public class CalendarFeature extends Programs {
 
 	public void getDate(JLabel dateLabel) {
 		Calendar cal = Calendar.getInstance();
-
 		int month = cal.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
 		int year = cal.get(Calendar.YEAR);
@@ -15,13 +14,9 @@ public class CalendarFeature extends Programs {
 	}
 	
 	public void getTime(JLabel timeLabel) {
-		
 		Thread clock = new Thread() {
-			
 			public void run() {
-				
 				try {
-					
 					while (true) {
 						Calendar cal = Calendar.getInstance();
 						int hour = cal.get(Calendar.HOUR);
@@ -48,7 +43,6 @@ public class CalendarFeature extends Programs {
 						else ampm = "PM";
 						
 						timeLabel.setText("Time: "+hh+":"+mm+":"+ss+" "+ampm);
-						
 						sleep(1000);
 					}
 				} catch (InterruptedException e) {
@@ -56,8 +50,7 @@ public class CalendarFeature extends Programs {
 				}
 			}
 		};
-		
-		clock.start();	
+		clock.start();
 	}
 	
 	public void runProgram() {
