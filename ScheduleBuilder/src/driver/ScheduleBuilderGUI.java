@@ -2,6 +2,8 @@ package driver;
 
 import runner.CalendarFeature;
 import runner.ScheduleFeature;
+import runner.TimerFeature;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -26,6 +28,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -34,7 +37,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JScrollBar;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 
 public class ScheduleBuilderGUI {
 
@@ -162,55 +164,75 @@ public class ScheduleBuilderGUI {
 	// Schedule
 	public static void schedule(JPanel p2) {
 	  ScheduleFeature scheduleF = new ScheduleFeature();
-          
-       String[] columnTime = {"Time"};
-       String[] columnTasks = {"Tasks"};
       
-       JTable tableTimes = new JTable(scheduleF.getTableTimes(), columnTime);
-       tableTimes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
-       tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-       tableTimes.setRowSelectionAllowed(false);
-       tableTimes.setEnabled(false);
+      String[] columnTime = {"Time"};
+      String[] columnTasks = {"Tasks"};
+     
+      JTable tableTimes = new JTable(scheduleF.getTableTimes(), columnTime);
+      tableTimes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
+      tableTimes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      tableTimes.setRowSelectionAllowed(false);
+      tableTimes.setEnabled(false);
+      
+      p2.setLayout(new BorderLayout());
+      //p2.add(tableTimes.getTableHeader(), BorderLayout.PAGE_START);
+      p2.add(tableTimes, BorderLayout.WEST);
        
-       p2.setLayout(new BorderLayout());
-       //p2.add(tableTimes.getTableHeader(), BorderLayout.PAGE_START);
-       p2.add(tableTimes, BorderLayout.WEST);
-        
-       JTable tableInput = new JTable(scheduleF.getTableTasks(), columnTasks);
-       tableInput.setRowSelectionAllowed(false);
-       tableInput.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-       
-       p2.setBackground(Color.WHITE);
-       p2.setOpaque(true);
-       p2.add(tableInput, BorderLayout.CENTER);
-       
-       JButton clearField = new JButton("Clear Field");
-       
-       clearField.addActionListener(new ActionListener() {
+      JTable tableInput = new JTable(scheduleF.getTableTasks(), columnTasks);
+      tableInput.setRowSelectionAllowed(false);
+      tableInput.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      
+      p2.setBackground(Color.WHITE);
+      p2.setOpaque(true);
+      p2.add(tableInput, BorderLayout.CENTER);
+      
+      JButton clearField = new JButton("Clear Field");
+      
+      clearField.addActionListener(new ActionListener() {
 
-         @Override
-         public void actionPerformed(ActionEvent arg0) {
-           //GET SELECTED ROW
-           tableInput.removeEditor();
-           for(int i=1;i<tableInput.getRowCount();i++)
-           {
-             tableInput.setValueAt(new String(),i, 0);
-           }
-         }
-       });
-       
-       p2.add(clearField, BorderLayout.SOUTH);
-       
-	}	
-	
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+          //GET SELECTED ROW
+          tableInput.removeEditor();
+          for(int i=1;i<tableInput.getRowCount();i++)
+          {
+            tableInput.setValueAt(new String(),i, 0);
+          }
+        }
+      });
+      
+      p2.add(clearField, BorderLayout.SOUTH);
+    }
+    
 	// Timer
 	public static void timer(JPanel p3) {
-		p3.add(new JLabel("Timer & Stopwatch"));
-		p3.setLayout(new GridLayout(1, 1));
+		p3.setLayout(new GridLayout(8, 2));
 		p3.setBackground(Color.WHITE);
 		p3.setOpaque(true);
+		
+		JLabel options = new JLabel("Select an option:");
+		p3.add(options);
+		options.setHorizontalAlignment(JLabel.LEFT);
+		options.setVerticalAlignment(JLabel.CENTER);
+		
+		JRadioButton timerRadioBtn = new JRadioButton("Timer");
+		p3.add(timerRadioBtn);
+		timerRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
+		timerRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		
+		JRadioButton stopwatchRadioBtn = new JRadioButton("Stopwatch");
+		p3.add(stopwatchRadioBtn);
+		stopwatchRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
+		stopwatchRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		
+		JButton selectButton = new JButton("Select");
+		p3.add(selectButton);
+		selectButton.setHorizontalAlignment(JButton.LEFT);
+		selectButton.setVerticalAlignment(JButton.CENTER);
+		
+		TimerFeature timerF = new TimerFeature();
+		timerF.runProgram();
 	}
-	
 	
 	// Settings
 	public static void settings(JPanel p4) {
