@@ -36,8 +36,11 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -200,7 +203,11 @@ public class ScheduleBuilderGUI {
     
 	// Timer
 	public static void timer(JPanel p3) {
-		p3.setLayout(new GridLayout(8, 2));
+		
+		TimerFeature timerF = new TimerFeature();
+		timerF.runProgram();
+		
+		p3.setLayout(new GridLayout(0, 4));
 		p3.setBackground(Color.WHITE);
 		p3.setOpaque(true);
 		
@@ -213,33 +220,57 @@ public class ScheduleBuilderGUI {
 		p3.add(timerRadioBtn);
 		timerRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
 		timerRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		timerRadioBtn.setBackground(Color.WHITE);
 		
 		JRadioButton stopwatchRadioBtn = new JRadioButton("Stopwatch");
 		p3.add(stopwatchRadioBtn);
 		stopwatchRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
 		stopwatchRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
+		stopwatchRadioBtn.setBackground(Color.WHITE);
 		
 		ButtonGroup G = new ButtonGroup();
 		G.add(timerRadioBtn);
 		G.add(stopwatchRadioBtn);
 		
-		JButton selectButton = new JButton("Select");
-		p3.add(selectButton);
-		selectButton.setHorizontalAlignment(JButton.LEFT);
-		selectButton.setVerticalAlignment(JButton.CENTER);
+		JButton selectBtn = new JButton("Select");
+		p3.add(selectBtn);
+		selectBtn.setHorizontalAlignment(JButton.CENTER);
+		selectBtn.setVerticalAlignment(JButton.CENTER);
+		
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
+		p3.add(new JLabel(""));
 		
 		JLabel timerLabel = new JLabel("TIMER");
 		p3.add(timerLabel);
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
 		timerLabel.setVerticalAlignment(JLabel.CENTER);
 		
+		JSeparator s = new JSeparator(); 
+		s.setOrientation(SwingConstants.VERTICAL);
+		p3.add(s);
+		
 		JLabel stopwatchLabel = new JLabel("STOPWATCH");
 		p3.add(stopwatchLabel);
 		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
 		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
 		
-		TimerFeature timerF = new TimerFeature();
-		timerF.runProgram();
+    	timerLabel.setVisible(false);
+    	stopwatchLabel.setVisible(false);
+		
+		//When button is clicked, go to method in TimerFeature class
+	    selectBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent select) {
+	        	// every time the button is clicked, the labels will not be visible
+	        	timerLabel.setVisible(false);
+	        	stopwatchLabel.setVisible(false);
+	        	// run method
+	        	timerF.selectOption(timerRadioBtn, stopwatchRadioBtn, timerLabel, stopwatchLabel);
+	        }
+	    });
+		
 	}
 	
 	// Settings
