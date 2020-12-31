@@ -5,9 +5,6 @@ import runner.ScheduleFeature;
 import runner.TimerFeature;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.TextField;
@@ -15,47 +12,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.util.Calendar;
-
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-
 import java.awt.Color;
-import java.awt.Font;
 
 public class ScheduleBuilderGUI {
 
 	public static void GUI() {
 		
 		// Create and set up the window.
-		final JFrame frame2 = new JFrame("Schedule Builder");
+		final JFrame frame = new JFrame("Schedule Builder");
 
-		frame2.setSize(617, 571);
-		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame2.getContentPane().setLayout(new GridLayout(1, 1));
+		frame.setSize(617, 571);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new GridLayout(1, 1));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
@@ -116,8 +96,8 @@ public class ScheduleBuilderGUI {
 		tabbedPane.addTab("Settings", resizedTab4Icon, p4);
 		tabbedPane.setBackgroundAt(4, Color.WHITE);
 		
-		frame2.getContentPane().add(tabbedPane);
-		frame2.setVisible(true);
+		frame.getContentPane().add(tabbedPane);
+		frame.setVisible(true);
 	}
 	
 	//Resize images
@@ -249,6 +229,8 @@ public class ScheduleBuilderGUI {
 		p3.add(new JLabel(""));
 		*/
 		
+		//JLabel emptyLabel = new JLabel("");
+		
 		//timer related objects
 		JLabel timerLabel = new JLabel("TIMER");
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -266,96 +248,110 @@ public class ScheduleBuilderGUI {
     	
     	JTextField enterSec = new JTextField("SS");
     	enterSec.setHorizontalAlignment(JLabel.CENTER);
+    	
+    	JLabel timer = new JLabel("00:00:00");
+    	timer.setHorizontalAlignment(JLabel.LEFT);
+    	timer.setVerticalAlignment(JLabel.CENTER);
 		
     	//stopwatch related objects
 		JLabel stopwatchLabel = new JLabel("STOPWATCH");
 		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
 		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
     	
-		//When button is clicked, go to method in TimerFeature class
+		//start, stop and reset buttons
+		JButton startBtn = new JButton("START");
+		startBtn.setHorizontalAlignment(JButton.CENTER);
+		startBtn.setVerticalAlignment(JButton.CENTER);
+		JButton stopBtn = new JButton("STOP");
+		stopBtn.setHorizontalAlignment(JButton.CENTER);
+		stopBtn.setVerticalAlignment(JButton.CENTER);
+		JButton resetBtn = new JButton("RESET");
+		resetBtn.setHorizontalAlignment(JButton.CENTER);
+		resetBtn.setVerticalAlignment(JButton.CENTER);
+		
+		//when select button is clicked
 	    selectBtn.addActionListener(new ActionListener(){
 	        @Override
-	        public void actionPerformed(ActionEvent select) {
+	        public void actionPerformed(ActionEvent e) {
 	        	
 	        	p3.remove(timerLabel);
 	        	p3.remove(enterTimerInfo);
 	        	p3.remove(enterHour);
 	        	p3.remove(enterMin);
 	        	p3.remove(enterSec);
+	        	p3.remove(timer);
 	        	p3.remove(stopwatchLabel);
 	        	p3.revalidate();
 	        	
 	        	if (timerRadioBtn.isSelected()) {
-		    		p3.add(timerLabel);
 		    		
-		    		p3.add(new JLabel(""));
-		    		p3.add(new JLabel(""));
-		    		p3.add(new JLabel(""));
-		    		
+	        		p3.add(timerLabel);
 		    		p3.add(enterTimerInfo);
-
 		        	p3.add(enterHour);
-		    		enterHour.addFocusListener(new FocusListener() {
-		    		    public void focusLost(FocusEvent e) {
-		    		        if(enterHour.getText().trim().equals(""))
-		    		        	enterHour.setText("HH");
-		    		         else; //do nothing
-		    		    }
-	
-		    		    public void focusGained(FocusEvent e) {
-		    		        if(enterHour.getText().trim().equals("HH"))
-		    		        	enterHour.setText("");
-		    		         else; //do nothing
-		    		    }
-		    		});
-		    		
 		        	p3.add(enterMin);
-		        	enterMin.addFocusListener(new FocusListener() {
-		    		    public void focusLost(FocusEvent e) {
-		    		        if(enterMin.getText().trim().equals(""))
-		    		        	enterMin.setText("MM");
-		    		         else; //do nothing
-		    		    }
-	
-		    		    public void focusGained(FocusEvent e) {
-		    		        if(enterMin.getText().trim().equals("MM"))
-		    		        	enterMin.setText("");
-		    		         else; //do nothing
-		    		    }
-		    		});
-		        	
 		        	p3.add(enterSec);
-		        	enterSec.addFocusListener(new FocusListener() {
-		    		    public void focusLost(FocusEvent e) {
-		    		        if(enterSec.getText().trim().equals(""))
-		    		        	enterSec.setText("SS");
-		    		         else; //do nothing
-		    		    }
-	
-		    		    public void focusGained(FocusEvent e) {
-		    		        if(enterSec.getText().trim().equals("SS"))
-		    		        	enterSec.setText("");
-		    		         else; //do nothing
-		    		    }
-		    		});
-	    			
-	    			timerF.runTimer();
-	    			
+		        	p3.add(timer);
+		        	
+		        	timerF.setTextFieldFocus(enterHour, "HH");
+		        	timerF.setTextFieldFocus(enterMin, "MM");
+		        	timerF.setTextFieldFocus(enterSec, "SS");
+
+		    	    //When start button is clicked
+		    	    startBtn.addActionListener(new ActionListener(){
+		    	        @Override
+		    	        public void actionPerformed(ActionEvent e) {
+		    	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
+		    	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time (hour<=12, min<=59, sec<=59).");
+		    	        	}
+		    	        	
+		    	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText());
+		    	        };
+		    	    });
+		    	    
+		    	    /*
+		    	    //When pause button is clicked
+		    	    startBtn.addActionListener(new ActionListener(){
+		    	        @Override
+		    	        public void actionPerformed(ActionEvent select) {
+		    	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
+		    	        		JOptionPane.showMessageDialog(enterHour, "Please enter a valid time (hour<13, min<60, sec<60).");
+		    	        	};
+		    	        	
+		        			timerF.runTimer();
+		    	        };
+		    	    });
+		    	    */
+		    	    
+		    	    //When reset button is clicked
+		    	    resetBtn.addActionListener(new ActionListener(){
+		    	        @Override
+		    	        public void actionPerformed(ActionEvent e) {
+		    	        	enterHour.setText("HH");
+		    	        	enterMin.setText("MM");
+		    	        	enterSec.setText("SS");
+		    	        	timer.setText("00:00:00");
+		    	        };
+		    	    });
+		    	    
 	        	}
 	        	
 	    		else if (stopwatchRadioBtn.isSelected()) {
 		    		//stopwatch label
 		    		p3.add(stopwatchLabel);
-		        	stopwatchLabel.setVisible(false);
 	    			
 		        	//reset stopwatch stuff
-		        	stopwatchLabel.setVisible(false);
-	    			stopwatchLabel.setVisible(true);
 	    			timerF.runStopwatch();
 	    		}
+	        	
+	        	p3.add(startBtn);
+	        	p3.add(stopBtn);
+	        	p3.add(resetBtn);
 	        }
 	    });
-		
+	    
+	    
+
+	    
 	}
 	
 	// Settings
