@@ -241,95 +241,115 @@ public class ScheduleBuilderGUI {
 		selectBtn.setHorizontalAlignment(JButton.CENTER);
 		selectBtn.setVerticalAlignment(JButton.CENTER);
 		
+		/*
 		//leave a line of space
 		p3.add(new JLabel(""));
 		p3.add(new JLabel(""));
 		p3.add(new JLabel(""));
 		p3.add(new JLabel(""));
+		*/
 		
-		//timer label
+		//timer related objects
 		JLabel timerLabel = new JLabel("TIMER");
-		p3.add(timerLabel);
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
 		timerLabel.setVerticalAlignment(JLabel.CENTER);
-		timerLabel.setVisible(false);
 		
-		//separator
-		JSeparator s = new JSeparator(); 
-		s.setOrientation(SwingConstants.VERTICAL);
-		p3.add(s);
-		
-		//stopwatch label
-		JLabel stopwatchLabel = new JLabel("STOPWATCH");
-		p3.add(stopwatchLabel);
-		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
-		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
-    	stopwatchLabel.setVisible(false);
-    	
-    	p3.add(new JLabel(""));
-    	
-    	//timer related things
     	JLabel enterTimerInfo = new JLabel("Enter the following & then press START");
-		p3.add(enterTimerInfo);
 		enterTimerInfo.setHorizontalAlignment(JLabel.LEFT);
 		enterTimerInfo.setVerticalAlignment(JLabel.CENTER);
-    	enterTimerInfo.setVisible(false);
-    	
+		
     	JTextField enterHour = new JTextField("HH");
     	enterHour.setHorizontalAlignment(JLabel.CENTER);
-    	p3.add(enterHour);
-		enterHour.addFocusListener(new FocusListener() {
-		    public void focusGained(FocusEvent e) {
-		        if(enterHour.getText().trim().equals(""))
-		        	enterHour.setText("HH");
-		         else; //do nothing
-		    }
-
-		    public void focusLost(FocusEvent e) {
-		        if(enterHour.getText().trim().equals("HH"))
-		        	enterHour.setText("");
-		         else; //do nothing
-		    }
-		});
-		enterHour.setVisible(false);
-		
+    	
     	JTextField enterMin = new JTextField("MM");
     	enterMin.setHorizontalAlignment(JLabel.CENTER);
-    	p3.add(enterMin);
-    	enterMin.setVisible(false);
+    	
     	JTextField enterSec = new JTextField("SS");
     	enterSec.setHorizontalAlignment(JLabel.CENTER);
-    	p3.add(enterSec);
-    	enterSec.setVisible(false);
 		
+    	//stopwatch related objects
+		JLabel stopwatchLabel = new JLabel("STOPWATCH");
+		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
+		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
+    	
 		//When button is clicked, go to method in TimerFeature class
 	    selectBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent select) {
-	        	// reset timer stuff
-	        	timerLabel.setVisible(false);
-	        	enterTimerInfo.setVisible(false);
-    			enterHour.setVisible(false);
-    			enterMin.setVisible(false);
-    			enterSec.setVisible(false);
-    			
-	        	//reset stopwatch stuff
-	        	stopwatchLabel.setVisible(false);
 	        	
+	        	p3.remove(timerLabel);
+	        	p3.remove(enterTimerInfo);
+	        	p3.remove(enterHour);
+	        	p3.remove(enterMin);
+	        	p3.remove(enterSec);
+	        	p3.remove(stopwatchLabel);
+	        	p3.revalidate();
 	        	
-	        	// run method
-	    		if (timerRadioBtn.isSelected()) {
-	    			timerLabel.setVisible(true);
-	    			enterTimerInfo.setVisible(true);
-	    			enterHour.setVisible(true);
-	    			enterMin.setVisible(true);
-	    			enterSec.setVisible(true);
-	    			
-	    			
+	        	if (timerRadioBtn.isSelected()) {
+		    		p3.add(timerLabel);
+		    		
+		    		p3.add(new JLabel(""));
+		    		p3.add(new JLabel(""));
+		    		p3.add(new JLabel(""));
+		    		
+		    		p3.add(enterTimerInfo);
+
+		        	p3.add(enterHour);
+		    		enterHour.addFocusListener(new FocusListener() {
+		    		    public void focusLost(FocusEvent e) {
+		    		        if(enterHour.getText().trim().equals(""))
+		    		        	enterHour.setText("HH");
+		    		         else; //do nothing
+		    		    }
+	
+		    		    public void focusGained(FocusEvent e) {
+		    		        if(enterHour.getText().trim().equals("HH"))
+		    		        	enterHour.setText("");
+		    		         else; //do nothing
+		    		    }
+		    		});
+		    		
+		        	p3.add(enterMin);
+		        	enterMin.addFocusListener(new FocusListener() {
+		    		    public void focusLost(FocusEvent e) {
+		    		        if(enterMin.getText().trim().equals(""))
+		    		        	enterMin.setText("MM");
+		    		         else; //do nothing
+		    		    }
+	
+		    		    public void focusGained(FocusEvent e) {
+		    		        if(enterMin.getText().trim().equals("MM"))
+		    		        	enterMin.setText("");
+		    		         else; //do nothing
+		    		    }
+		    		});
+		        	
+		        	p3.add(enterSec);
+		        	enterSec.addFocusListener(new FocusListener() {
+		    		    public void focusLost(FocusEvent e) {
+		    		        if(enterSec.getText().trim().equals(""))
+		    		        	enterSec.setText("SS");
+		    		         else; //do nothing
+		    		    }
+	
+		    		    public void focusGained(FocusEvent e) {
+		    		        if(enterSec.getText().trim().equals("SS"))
+		    		        	enterSec.setText("");
+		    		         else; //do nothing
+		    		    }
+		    		});
 	    			
 	    			timerF.runTimer();
-	    		}
+	    			
+	        	}
+	        	
 	    		else if (stopwatchRadioBtn.isSelected()) {
+		    		//stopwatch label
+		    		p3.add(stopwatchLabel);
+		        	stopwatchLabel.setVisible(false);
+	    			
+		        	//reset stopwatch stuff
+		        	stopwatchLabel.setVisible(false);
 	    			stopwatchLabel.setVisible(true);
 	    			timerF.runStopwatch();
 	    		}
