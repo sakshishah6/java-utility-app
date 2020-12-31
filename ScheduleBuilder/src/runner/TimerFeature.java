@@ -1,21 +1,23 @@
 package runner;
 
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
+import javax.swing.JTextField;
 
 public class TimerFeature extends Programs {
 
-	public void selectOption(JRadioButton timerRadioBtn, JRadioButton stopwatchRadioBtn, JLabel timerLabel, JLabel stopwatchLabel) {
-		if (timerRadioBtn.isSelected()) runTimer(timerLabel);
-		else if (stopwatchRadioBtn.isSelected()) runStopwatch(stopwatchLabel);
+	public void setTimerTextFields(JTextField enterHour, JTextField enterMin, JTextField enterSec) {
+
+		
+	};
+	
+	public void runTimer() {
+
 	}
 	
-	public void runTimer(JLabel timerLabel) {
-		timerLabel.setVisible(true);
-	}
-	
-	public void runStopwatch(JLabel stopwatchLabel) {
-		stopwatchLabel.setVisible(true);
+	public void runStopwatch() {
+
 	}
 	
 	@Override
