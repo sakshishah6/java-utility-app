@@ -13,6 +13,8 @@ import java.awt.Image;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Calendar;
@@ -207,10 +209,12 @@ public class ScheduleBuilderGUI {
 		TimerFeature timerF = new TimerFeature();
 		timerF.runProgram();
 		
+		//set up p3
 		p3.setLayout(new GridLayout(0, 4));
 		p3.setBackground(Color.WHITE);
 		p3.setOpaque(true);
 		
+		//code for selecting between timer & stopwatch
 		JLabel options = new JLabel("Select an option:");
 		p3.add(options);
 		options.setHorizontalAlignment(JLabel.LEFT);
@@ -237,37 +241,98 @@ public class ScheduleBuilderGUI {
 		selectBtn.setHorizontalAlignment(JButton.CENTER);
 		selectBtn.setVerticalAlignment(JButton.CENTER);
 		
+		//leave a line of space
 		p3.add(new JLabel(""));
 		p3.add(new JLabel(""));
 		p3.add(new JLabel(""));
 		p3.add(new JLabel(""));
 		
+		//timer label
 		JLabel timerLabel = new JLabel("TIMER");
 		p3.add(timerLabel);
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
 		timerLabel.setVerticalAlignment(JLabel.CENTER);
+		timerLabel.setVisible(false);
 		
+		//separator
 		JSeparator s = new JSeparator(); 
 		s.setOrientation(SwingConstants.VERTICAL);
 		p3.add(s);
 		
+		//stopwatch label
 		JLabel stopwatchLabel = new JLabel("STOPWATCH");
 		p3.add(stopwatchLabel);
 		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
 		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
-		
-    	timerLabel.setVisible(false);
     	stopwatchLabel.setVisible(false);
+    	
+    	p3.add(new JLabel(""));
+    	
+    	//timer related things
+    	JLabel enterTimerInfo = new JLabel("Enter the following & then press START");
+		p3.add(enterTimerInfo);
+		enterTimerInfo.setHorizontalAlignment(JLabel.LEFT);
+		enterTimerInfo.setVerticalAlignment(JLabel.CENTER);
+    	enterTimerInfo.setVisible(false);
+    	
+    	JTextField enterHour = new JTextField("HH");
+    	enterHour.setHorizontalAlignment(JLabel.CENTER);
+    	p3.add(enterHour);
+		enterHour.addFocusListener(new FocusListener() {
+		    public void focusGained(FocusEvent e) {
+		        if(enterHour.getText().trim().equals(""))
+		        	enterHour.setText("HH");
+		         else; //do nothing
+		    }
+
+		    public void focusLost(FocusEvent e) {
+		        if(enterHour.getText().trim().equals("HH"))
+		        	enterHour.setText("");
+		         else; //do nothing
+		    }
+		});
+		enterHour.setVisible(false);
+		
+    	JTextField enterMin = new JTextField("MM");
+    	enterMin.setHorizontalAlignment(JLabel.CENTER);
+    	p3.add(enterMin);
+    	enterMin.setVisible(false);
+    	JTextField enterSec = new JTextField("SS");
+    	enterSec.setHorizontalAlignment(JLabel.CENTER);
+    	p3.add(enterSec);
+    	enterSec.setVisible(false);
 		
 		//When button is clicked, go to method in TimerFeature class
 	    selectBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent select) {
-	        	// every time the button is clicked, the labels will not be visible
+	        	// reset timer stuff
 	        	timerLabel.setVisible(false);
+	        	enterTimerInfo.setVisible(false);
+    			enterHour.setVisible(false);
+    			enterMin.setVisible(false);
+    			enterSec.setVisible(false);
+    			
+	        	//reset stopwatch stuff
 	        	stopwatchLabel.setVisible(false);
+	        	
+	        	
 	        	// run method
-	        	timerF.selectOption(timerRadioBtn, stopwatchRadioBtn, timerLabel, stopwatchLabel);
+	    		if (timerRadioBtn.isSelected()) {
+	    			timerLabel.setVisible(true);
+	    			enterTimerInfo.setVisible(true);
+	    			enterHour.setVisible(true);
+	    			enterMin.setVisible(true);
+	    			enterSec.setVisible(true);
+	    			
+	    			
+	    			
+	    			timerF.runTimer();
+	    		}
+	    		else if (stopwatchRadioBtn.isSelected()) {
+	    			stopwatchLabel.setVisible(true);
+	    			timerF.runStopwatch();
+	    		}
 	        }
 	    });
 		
