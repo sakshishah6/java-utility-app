@@ -20,6 +20,7 @@ import java.util.Calendar;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -218,10 +219,24 @@ public class ScheduleBuilderGUI {
 		stopwatchRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
 		stopwatchRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
 		
+		ButtonGroup G = new ButtonGroup();
+		G.add(timerRadioBtn);
+		G.add(stopwatchRadioBtn);
+		
 		JButton selectButton = new JButton("Select");
 		p3.add(selectButton);
 		selectButton.setHorizontalAlignment(JButton.LEFT);
 		selectButton.setVerticalAlignment(JButton.CENTER);
+		
+		JLabel timerLabel = new JLabel("TIMER");
+		p3.add(timerLabel);
+		timerLabel.setHorizontalAlignment(JLabel.CENTER);
+		timerLabel.setVerticalAlignment(JLabel.CENTER);
+		
+		JLabel stopwatchLabel = new JLabel("STOPWATCH");
+		p3.add(stopwatchLabel);
+		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
+		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
 		
 		TimerFeature timerF = new TimerFeature();
 		timerF.runProgram();
