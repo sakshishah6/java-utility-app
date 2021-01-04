@@ -239,8 +239,7 @@ public class ScheduleBuilderGUI {
 		startBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		startBtn.setHorizontalAlignment(JButton.CENTER);
 		startBtn.setVerticalAlignment(JButton.CENTER);
-		startBtn.setPreferredSize(new Dimension(40, 40));
-		//startBtn.setSize(100,100);
+		startBtn.setSize(100,100);
 		
 		JButton pauseBtn = new JButton("PAUSE");
 		pauseBtn.setForeground(new Color(255, 0, 0));
