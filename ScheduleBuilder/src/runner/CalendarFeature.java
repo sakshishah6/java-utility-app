@@ -2,6 +2,9 @@ package runner;
 
 import java.util.Calendar;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 
 public class CalendarFeature extends Programs {
 
@@ -52,6 +55,58 @@ public class CalendarFeature extends Programs {
 		};
 		clock.start();
 	}
+	
+	public JTable getTableModel() {
+      //THE TABLE
+      final JTable table=new JTable();
+
+      //THE MODEL OF OUR TABLE
+      DefaultTableModel model=new DefaultTableModel()
+      {
+        public Class<?> getColumnClass(int column)
+        {
+          switch(column)
+          {
+          case 0:
+            return String.class;
+          case 1:
+            return String.class;
+          default:
+            return String.class;
+          }
+        }
+        
+        @Override 
+        public boolean isCellEditable(int row, int column)
+        {
+          
+          if (column == 0) {
+            return false;
+          }
+          return true;  
+        }     
+      };
+
+      //ASSIGN THE MODEL TO TABLE
+      table.setModel(model);
+
+      model.addColumn("DAY");
+      model.addColumn("EVENTS");
+  //
+//      //THE ROW
+     int day = 1;
+     for(int i=0;i<31;i++)
+     {
+       model.addRow(new Object[0]);
+             
+       model.setValueAt("" + day,i,0);
+       day++;
+      }
+
+     table.getColumnModel().getColumn(1).setPreferredWidth(500);
+     table.setSelectionMode(0);
+     return table;
+    }
 	
 	@Override
 	public void runProgram() {
