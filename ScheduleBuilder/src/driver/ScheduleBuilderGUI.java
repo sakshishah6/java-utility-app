@@ -11,22 +11,25 @@ import java.awt.Image;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ScheduleBuilderGUI {
 
+	
 	public static void GUI() {
 		
 		// Create and set up the window.
@@ -69,7 +72,7 @@ public class ScheduleBuilderGUI {
 		// Panel 4: Stopwatch
 		JPanel p4 = new JPanel();
         ImageIcon tab4Icon, resizedTab4Icon;
-        tab4Icon = new ImageIcon("src/media/settings icon.png","iconImg4");
+        tab4Icon = new ImageIcon("src/media/stopwatch icon.png","iconImg4");
         resizedTab4Icon = resizeIcons(tab4Icon);
 		stopwatch(p4);
 		
@@ -84,7 +87,6 @@ public class ScheduleBuilderGUI {
 		
 		tabbedPane.addTab("Schedule", p2);
 		tabbedPane.addTab("Schedule", resizedTab2Icon, p2);
-
 		tabbedPane.setBackgroundAt(2, Color.WHITE);
 		
 		tabbedPane.addTab("Timer", p3);
@@ -98,6 +100,7 @@ public class ScheduleBuilderGUI {
 		frame.getContentPane().add(tabbedPane);
 		frame.setVisible(true);
 	}
+	
 	
 	//Resize images
 	public static ImageIcon resizeIcons(ImageIcon icon) {
@@ -186,6 +189,7 @@ public class ScheduleBuilderGUI {
       p2.add(clearField, BorderLayout.SOUTH);    
     }
     
+	
 	// Timer
 	public static void timer(JPanel p3) {
 		
@@ -193,169 +197,115 @@ public class ScheduleBuilderGUI {
 		timerF.runProgram();
 		
 		//set up p3
-		p3.setLayout(new GridLayout(0, 4));
+		p3.setLayout(new GridLayout(4, 3));
 		p3.setBackground(Color.WHITE);
 		p3.setOpaque(true);
 		
-		//code for selecting between timer & stopwatch
-		JLabel options = new JLabel("Select an option:");
-		p3.add(options);
-		options.setHorizontalAlignment(JLabel.LEFT);
-		options.setVerticalAlignment(JLabel.CENTER);
-		
-		JRadioButton timerRadioBtn = new JRadioButton("Timer");
-		p3.add(timerRadioBtn);
-		timerRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
-		timerRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
-		timerRadioBtn.setBackground(Color.WHITE);
-		
-		JRadioButton stopwatchRadioBtn = new JRadioButton("Stopwatch");
-		p3.add(stopwatchRadioBtn);
-		stopwatchRadioBtn.setHorizontalAlignment(JRadioButton.LEFT);
-		stopwatchRadioBtn.setVerticalAlignment(JRadioButton.CENTER);
-		stopwatchRadioBtn.setBackground(Color.WHITE);
-		
-		ButtonGroup G = new ButtonGroup();
-		G.add(timerRadioBtn);
-		G.add(stopwatchRadioBtn);
-		
-		JButton selectBtn = new JButton("Select");
-		p3.add(selectBtn);
-		selectBtn.setHorizontalAlignment(JButton.CENTER);
-		selectBtn.setVerticalAlignment(JButton.CENTER);
-		
-		/*
-		//leave a line of space
-		p3.add(new JLabel(""));
-		p3.add(new JLabel(""));
-		p3.add(new JLabel(""));
-		p3.add(new JLabel(""));
-		*/
-		
-		//JLabel emptyLabel = new JLabel("");
-		
-		//timer related objects
-		JLabel timerLabel = new JLabel("TIMER");
-		timerLabel.setHorizontalAlignment(JLabel.CENTER);
-		timerLabel.setVerticalAlignment(JLabel.CENTER);
-		
-    	JLabel enterTimerInfo = new JLabel("Enter the following & then press START");
-		enterTimerInfo.setHorizontalAlignment(JLabel.LEFT);
-		enterTimerInfo.setVerticalAlignment(JLabel.CENTER);
+    	JLabel hourLabel = new JLabel("Hour:");
+    	hourLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+    	hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    	hourLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+    	
+    	JLabel minuteLabel = new JLabel("Minute:");
+    	minuteLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+    	minuteLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    	minuteLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+    	
+    	JLabel secondLabel = new JLabel("Second:");
+    	secondLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+    	secondLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    	secondLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
     	JTextField enterHour = new JTextField("HH");
+    	enterHour.setFont(new Font("Tahoma", Font.PLAIN, 15));
     	enterHour.setHorizontalAlignment(JLabel.CENTER);
     	
     	JTextField enterMin = new JTextField("MM");
+    	enterMin.setFont(new Font("Tahoma", Font.PLAIN, 15));
     	enterMin.setHorizontalAlignment(JLabel.CENTER);
     	
     	JTextField enterSec = new JTextField("SS");
+    	enterSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
     	enterSec.setHorizontalAlignment(JLabel.CENTER);
     	
     	JLabel timer = new JLabel("00:00:00");
-    	timer.setHorizontalAlignment(JLabel.LEFT);
+    	timer.setFont(new Font("Tahoma", Font.BOLD, 30));
+    	timer.setHorizontalAlignment(JLabel.CENTER);
     	timer.setVerticalAlignment(JLabel.CENTER);
-		
-    	//stopwatch related objects
-		JLabel stopwatchLabel = new JLabel("STOPWATCH");
-		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
-		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
     	
 		//start, stop and reset buttons
 		JButton startBtn = new JButton("START");
+		startBtn.setForeground(new Color(50, 205, 50));
+		startBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		startBtn.setHorizontalAlignment(JButton.CENTER);
 		startBtn.setVerticalAlignment(JButton.CENTER);
-		JButton stopBtn = new JButton("STOP");
-		stopBtn.setHorizontalAlignment(JButton.CENTER);
-		stopBtn.setVerticalAlignment(JButton.CENTER);
+		startBtn.setPreferredSize(new Dimension(40, 40));
+		//startBtn.setSize(100,100);
+		
+		JButton pauseBtn = new JButton("PAUSE");
+		pauseBtn.setForeground(new Color(255, 0, 0));
+		pauseBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		pauseBtn.setHorizontalAlignment(JButton.CENTER);
+		pauseBtn.setVerticalAlignment(JButton.CENTER);
+		pauseBtn.setSize(100,100);
+		
 		JButton resetBtn = new JButton("RESET");
+		resetBtn.setForeground(new Color(32, 178, 170));
+		resetBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		resetBtn.setHorizontalAlignment(JButton.CENTER);
 		resetBtn.setVerticalAlignment(JButton.CENTER);
+		resetBtn.setSize(100,100);
 		
-		//when select button is clicked
-	    selectBtn.addActionListener(new ActionListener(){
+		p3.add(hourLabel);
+		p3.add(minuteLabel);
+		p3.add(secondLabel);
+    	p3.add(enterHour);
+    	p3.add(enterMin);
+    	p3.add(enterSec);
+    	p3.add(new JLabel(""));
+    	p3.add(timer);
+    	p3.add(new JLabel(""));
+    	p3.add(startBtn);
+    	p3.add(pauseBtn);
+    	p3.add(resetBtn);
+    	
+    	timerF.setTextFieldFocus(enterHour, "HH");
+    	timerF.setTextFieldFocus(enterMin, "MM");
+    	timerF.setTextFieldFocus(enterSec, "SS");
+		
+	    //When start button is clicked
+	    startBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	        	
-	        	p3.remove(timerLabel);
-	        	p3.remove(enterTimerInfo);
-	        	p3.remove(enterHour);
-	        	p3.remove(enterMin);
-	        	p3.remove(enterSec);
-	        	p3.remove(timer);
-	        	p3.remove(stopwatchLabel);
-	        	p3.revalidate();
-	        	
-	        	if (timerRadioBtn.isSelected()) {
-		    		
-	        		p3.add(timerLabel);
-		    		p3.add(enterTimerInfo);
-		        	p3.add(enterHour);
-		        	p3.add(enterMin);
-		        	p3.add(enterSec);
-		        	p3.add(timer);
-		        	
-		        	timerF.setTextFieldFocus(enterHour, "HH");
-		        	timerF.setTextFieldFocus(enterMin, "MM");
-		        	timerF.setTextFieldFocus(enterSec, "SS");
-
-		    	    //When start button is clicked
-		    	    startBtn.addActionListener(new ActionListener(){
-		    	        @Override
-		    	        public void actionPerformed(ActionEvent e) {
-		    	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
-		    	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time (hour<=12, min<=59, sec<=59).");
-		    	        	}
-		    	        	
-		    	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText());
-		    	        };
-		    	    });
-		    	    
-		    	    /*
-		    	    //When pause button is clicked
-		    	    startBtn.addActionListener(new ActionListener(){
-		    	        @Override
-		    	        public void actionPerformed(ActionEvent select) {
-		    	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
-		    	        		JOptionPane.showMessageDialog(enterHour, "Please enter a valid time (hour<13, min<60, sec<60).");
-		    	        	};
-		    	        	
-		        			timerF.runTimer();
-		    	        };
-		    	    });
-		    	    */
-		    	    
-		    	    //When reset button is clicked
-		    	    resetBtn.addActionListener(new ActionListener(){
-		    	        @Override
-		    	        public void actionPerformed(ActionEvent e) {
-		    	        	enterHour.setText("HH");
-		    	        	enterMin.setText("MM");
-		    	        	enterSec.setText("SS");
-		    	        	timer.setText("00:00:00");
-		    	        };
-		    	    });
-		    	    
+	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
+	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time. (HR <= 12, MIN <= 59, SEC <= 59).");
 	        	}
 	        	
-	    		else if (stopwatchRadioBtn.isSelected()) {
-		    		//stopwatch label
-		    		p3.add(stopwatchLabel);
-	    			
-		        	//reset stopwatch stuff
-	    			timerF.runStopwatch();
-	    		}
-	        	
-	        	p3.add(startBtn);
-	        	p3.add(stopBtn);
-	        	p3.add(resetBtn);
-	        }
+	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText());
+	        };
 	    });
-	    
-	    
 
-	    
+	    //When stop button is clicked
+	    pauseBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent select) {
+	        	
+	        };
+	    });
+		    	    
+	    //When reset button is clicked
+	    resetBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	        	enterHour.setText("HH");
+	        	enterMin.setText("MM");
+	        	enterSec.setText("SS");
+	        	timer.setText("00:00:00");
+	        };
+	    });
+
 	}
+	
 	
 	// Stopwatch
 	public static void stopwatch(JPanel p4) {
@@ -363,8 +313,15 @@ public class ScheduleBuilderGUI {
 		p4.setLayout(new GridLayout(1, 1));
 		p4.setBackground(Color.WHITE);
 		p4.setOpaque(true);
+		
+    	//stopwatch related objects
+		JLabel stopwatchLabel = new JLabel("STOPWATCH");
+		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
+		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
 	}
 	
+	
+	// Main
 	public static void main(String[] args) {
 		GUI();
 	}
