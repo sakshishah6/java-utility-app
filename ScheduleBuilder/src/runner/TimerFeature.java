@@ -139,7 +139,6 @@ public class TimerFeature extends Programs {
 		
 		//convert input hr, min, sec to sec only
 		int secOnly = convertToSeconds(hr, min, sec);
-		System.out.println("converted " + secOnly);
 		
 	    int delay = 1000;
 	    int period = 1000;
@@ -149,7 +148,6 @@ public class TimerFeature extends Programs {
 	    start = 1;
     	int[] result = convertFromSeconds(secOnly);
     	String finalTime = formatTime(result[0], result[1], result[2]);
-    	System.out.println(finalTime);
     	timerLbl.setText(finalTime);
     	
 	    t.scheduleAtFixedRate(new TimerTask(){
@@ -163,15 +161,11 @@ public class TimerFeature extends Programs {
 	        	}
 	        	int[] result = convertFromSeconds(secOnlyNew);
 	        	String finalTime = formatTime(result[0], result[1], result[2]);
-	        	System.out.println(finalTime);
 	        	timerLbl.setText(finalTime);
 	        }
 	    }, delay, period);
 	}
 	
-	public void runStopwatch() {
-
-	}
 	
 	@Override
 	public void runProgram() {
