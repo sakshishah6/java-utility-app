@@ -1,9 +1,13 @@
 package runner;
 
 public class StopwatchFeature extends Programs {
-	
-	  @Override
-	  public void runProgram() {
-	    // TODO Auto-generated method stub
-	  }
+
+	public void runStopwatch() {
+
+	}
+
+	@Override
+	public void runProgram() {
+		// TODO Auto-generated method stub
+	}
 }
