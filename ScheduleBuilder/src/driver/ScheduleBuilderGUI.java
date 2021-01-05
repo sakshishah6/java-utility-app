@@ -366,7 +366,7 @@ public class ScheduleBuilderGUI {
 	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
 	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time.\nHOUR < 13\nMINUTE < 60\nSECOND < 60");
 	        	}
-	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText());
+	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 1);
 	        };
 	    });
 
@@ -374,7 +374,7 @@ public class ScheduleBuilderGUI {
 	    timerPauseBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent select) {
-	        	
+	        	timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 2);
 	        };
 	    });
 		    	    
@@ -382,7 +382,7 @@ public class ScheduleBuilderGUI {
 	    timerResetBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	        	timerF.resetTimer();
+	        	timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 3);
 	        	enterHour.setText("HH");
 	        	enterMin.setText("MM");
 	        	enterSec.setText("SS");
