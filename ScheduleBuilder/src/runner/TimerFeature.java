@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 
 public class TimerFeature extends Programs {
 
-	Timer t = new Timer();
 	int start;
 	int secOnlyNew = 0;
 	
@@ -118,7 +117,7 @@ public class TimerFeature extends Programs {
 	    start = 0;
 		if (seconds == 1) {
 			t.cancel();
-			playMusic("src/media/alarm.mp3");
+			playMusic("src/media/timer sound.mp3");
 		}
 	    return seconds-1;
 	}
@@ -137,20 +136,9 @@ public class TimerFeature extends Programs {
 	       } catch (LineUnavailableException e) {
 	          e.printStackTrace();
 	       }
-		/*
-		InputStream music;
-		try {
-			music = new FileInputStream(new File(filepath));
-			AudioStream audio = new AudioStream(music);
-			AudioPlayer.player.start(audio);
-		}
-		catch(Exception e) {
-			
-		}
-		*/
 	}
 	
-	public void runTimer(JLabel timerLbl, String hour, String minute, String second) {
+	public void runTimer(JLabel timerLbl, String hour, String minute, String second, int option) {
 		int hr = Integer.parseInt(hour);
 		int min = Integer.parseInt(minute);
 		int sec = Integer.parseInt(second);
@@ -161,11 +149,17 @@ public class TimerFeature extends Programs {
 	    int period = 1000;
 	    
 	    start = 1;
-    	int[] result = convertFromSeconds(secOnly);
-    	String finalTime = formatTime(result[0], result[1], result[2]);
-    	timerLbl.setText(finalTime);
     	
-	    t.scheduleAtFixedRate(new TimerTask(){
+	    int[] result = convertFromSeconds(secOnly);
+    	
+	    String finalTime = formatTime(result[0], result[1], result[2]);
+    	
+	    timerLbl.setText(finalTime);
+    	
+    	Timer t = new Timer();
+    	TimerTask task;
+    	
+    	task = new TimerTask() {
 	        public void run() {
 	        	if (start==1) {
 	        		secOnlyNew = setInterval(secOnly, t);
@@ -173,20 +167,37 @@ public class TimerFeature extends Programs {
 	        	}
 	        	else {
 		        	secOnlyNew = setInterval(secOnlyNew, t);
+		        	System.out.println(secOnlyNew);
 	        	}
 	        	int[] result = convertFromSeconds(secOnlyNew);
 	        	String finalTime = formatTime(result[0], result[1], result[2]);
 	        	timerLbl.setText(finalTime);
 	        }
-	    }, delay, period);
+    	};
+	    	
+    	//option 1 - start
+    	if (option==1) {
+		    t.scheduleAtFixedRate(task, delay, period);
+    	}
+    	
+    	//option 2 - pause
+    	else if (option==2) {
+    		
+    	}
+    	
+    	//option 3 - reset
+    	else if (option==3) {
+    		task.cancel();
+    	}
 	}
 	
 	public void pauseTimer() {
-		//t.
+
 	}
 	
 	public void resetTimer() {
-		t.cancel();
+		//t.cancel();
+		//task.cancel();
 	}
 	
 	@Override
