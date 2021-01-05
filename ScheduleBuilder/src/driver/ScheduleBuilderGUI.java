@@ -3,16 +3,13 @@ package driver;
 import runner.CalendarFeature;
 import runner.ScheduleFeature;
 import runner.TimerFeature;
-import runner.StopwatchFeature;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,15 +19,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import java.awt.Component;
+import java.awt.Dimension;
+
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.BevelBorder;
 
 public class ScheduleBuilderGUI {
 
@@ -40,7 +41,7 @@ public class ScheduleBuilderGUI {
 		// Create and set up the window.
 		final JFrame frame = new JFrame("Schedule Builder");
 
-		frame.setSize(617, 571);
+		frame.setSize(620, 580);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(1, 1));
 
@@ -223,77 +224,141 @@ public class ScheduleBuilderGUI {
 		timerF.runProgram();
 		
 		//set up p3
-		p3.setLayout(new GridLayout(4, 3));
+		p3.setLayout(new GridLayout(2, 1));
 		p3.setBackground(Color.WHITE);
 		p3.setOpaque(true);
 		
+		//panel for timer info
+		JPanel timerInfoPanel = new JPanel();
+		BoxLayout boxlayout1 = new BoxLayout(timerInfoPanel, BoxLayout.X_AXIS);
+		timerInfoPanel.setLayout(boxlayout1);
+		timerInfoPanel.setBorder(new EmptyBorder(20, 10, 10, 5));
+		timerInfoPanel.setBackground(Color.WHITE);
+		p3.add(timerInfoPanel);
+		
+		//additional labelPanel within timerInfoPanel
+		JPanel labelPanel = new JPanel();
+		BoxLayout boxlayout2 = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);
+		labelPanel.setLayout(boxlayout2);
+		labelPanel.setPreferredSize((new Dimension(300, 100)));
+		labelPanel.setBorder(new EmptyBorder(20, 200, 20, 5));
+		labelPanel.setBackground(Color.WHITE);
+		timerInfoPanel.add(labelPanel);
+		
     	JLabel hourLabel = new JLabel("Hour:");
-    	hourLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-    	hourLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    	hourLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+    	hourLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+    	hourLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    	hourLabel.setBorder(new EmptyBorder(15, 10, 10, 10));
+    	hourLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
     	
     	JLabel minuteLabel = new JLabel("Minute:");
-    	minuteLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-    	minuteLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    	minuteLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+    	minuteLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+    	minuteLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    	minuteLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    	minuteLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
     	
     	JLabel secondLabel = new JLabel("Second:");
-    	secondLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-    	secondLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    	secondLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+    	secondLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+    	secondLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    	secondLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    	secondLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
+    	labelPanel.add(hourLabel);
+    	labelPanel.add(minuteLabel);
+    	labelPanel.add(secondLabel);
+    	
+    	//additional textFieldPanel within timerInfoPanel
+		JPanel textFieldPanel = new JPanel();
+		BoxLayout boxlayout3 = new BoxLayout(textFieldPanel, BoxLayout.Y_AXIS);
+		textFieldPanel.setLayout(boxlayout3);
+		textFieldPanel.setBorder(new EmptyBorder(20, 5, 20, 20));
+		textFieldPanel.setBackground(Color.WHITE);
+		textFieldPanel.setPreferredSize((new Dimension(300, 100)));
+		timerInfoPanel.add(textFieldPanel);
+    	
     	JTextField enterHour = new JTextField("HH");
+    	enterHour.setAlignmentX(Component.LEFT_ALIGNMENT);
     	enterHour.setFont(new Font("Tahoma", Font.PLAIN, 15));
-    	enterHour.setHorizontalAlignment(JLabel.CENTER);
+    	enterHour.setHorizontalAlignment(SwingConstants.LEFT);
+    	enterHour.setMaximumSize((new Dimension(50,30)));
     	
     	JTextField enterMin = new JTextField("MM");
+    	enterMin.setAlignmentX(Component.LEFT_ALIGNMENT);
     	enterMin.setFont(new Font("Tahoma", Font.PLAIN, 15));
-    	enterMin.setHorizontalAlignment(JLabel.CENTER);
+    	enterMin.setHorizontalAlignment(SwingConstants.LEFT);
+    	enterMin.setMaximumSize((new Dimension(50,35)));
     	
     	JTextField enterSec = new JTextField("SS");
+    	enterSec.setAlignmentX(Component.LEFT_ALIGNMENT);
     	enterSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
-    	enterSec.setHorizontalAlignment(JLabel.CENTER);
+    	enterSec.setHorizontalAlignment(SwingConstants.LEFT);
+    	enterSec.setMaximumSize((new Dimension(50,35)));
     	
+    	textFieldPanel.add(enterHour);
+    	textFieldPanel.add(enterMin);
+    	textFieldPanel.add(enterSec);
+    	
+    	//panel for timer & buttons itself
+		JPanel generalTimerPanel = new JPanel();
+		BoxLayout boxlayout4 = new BoxLayout(generalTimerPanel, BoxLayout.Y_AXIS);
+		generalTimerPanel.setLayout(boxlayout4);
+		generalTimerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		generalTimerPanel.setBackground(Color.WHITE);
+		p3.add(generalTimerPanel);
+		
+		//additional timerPanel within the generalTimerPanel
+		JPanel timerPanel = new JPanel();
+		BoxLayout boxlayout5 = new BoxLayout(timerPanel, BoxLayout.X_AXIS);
+		timerPanel.setLayout(boxlayout5);
+		timerPanel.setBorder(new EmptyBorder(10, 30, 30, 30));
+		timerPanel.setBackground(Color.WHITE);
+		generalTimerPanel.add(timerPanel);
+		
     	JLabel timer = new JLabel("00:00:00");
     	timer.setFont(new Font("Tahoma", Font.BOLD, 30));
     	timer.setHorizontalAlignment(JLabel.CENTER);
     	timer.setVerticalAlignment(JLabel.CENTER);
+    	timerPanel.add(timer);
     	
-		//start, stop and reset buttons
+		//additional buttonPanel within the generalTimerPanel
+		JPanel buttonPanel = new JPanel();
+		BoxLayout boxlayout6 = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
+		buttonPanel.setLayout(boxlayout6);
+		buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		buttonPanel.setBackground(Color.WHITE);
+		buttonPanel.setMaximumSize(new Dimension(300, 100));
+		generalTimerPanel.add(buttonPanel);
+    	
 		JButton timerStartBtn = new JButton("START");
+		timerStartBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		timerStartBtn.setForeground(new Color(50, 205, 50));
 		timerStartBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		timerStartBtn.setHorizontalAlignment(JButton.CENTER);
 		timerStartBtn.setVerticalAlignment(JButton.CENTER);
-		timerStartBtn.setSize(100,100);
+		timerStartBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		timerStartBtn.setMaximumSize((new Dimension(100,50)));
+		buttonPanel.add(timerStartBtn);
 		
 		JButton timerPauseBtn = new JButton("PAUSE");
+		timerPauseBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		timerPauseBtn.setForeground(new Color(255, 0, 0));
 		timerPauseBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		timerPauseBtn.setHorizontalAlignment(JButton.CENTER);
 		timerPauseBtn.setVerticalAlignment(JButton.CENTER);
-		timerPauseBtn.setSize(100,100);
+		timerPauseBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		timerPauseBtn.setMaximumSize((new Dimension(100,50)));
+		buttonPanel.add(timerPauseBtn);
 		
 		JButton timerResetBtn = new JButton("RESET");
+		timerResetBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		timerResetBtn.setForeground(new Color(32, 178, 170));
 		timerResetBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		timerResetBtn.setHorizontalAlignment(JButton.CENTER);
 		timerResetBtn.setVerticalAlignment(JButton.CENTER);
-		timerResetBtn.setSize(100,100);
+		timerResetBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		timerResetBtn.setMaximumSize((new Dimension(100,50)));
+		buttonPanel.add(timerResetBtn);
 		
-		p3.add(hourLabel);
-		p3.add(minuteLabel);
-		p3.add(secondLabel);
-    	p3.add(enterHour);
-    	p3.add(enterMin);
-    	p3.add(enterSec);
-    	p3.add(new JLabel(""));
-    	p3.add(timer);
-    	p3.add(new JLabel(""));
-    	p3.add(timerStartBtn);
-    	p3.add(timerPauseBtn);
-    	p3.add(timerResetBtn);
-    	
     	timerF.setTextFieldFocus(enterHour, "HH");
     	timerF.setTextFieldFocus(enterMin, "MM");
     	timerF.setTextFieldFocus(enterSec, "SS");
@@ -334,43 +399,66 @@ public class ScheduleBuilderGUI {
 	
 	// Stopwatch
 	public static void stopwatch(JPanel p4) {
-		p4.setLayout(new GridLayout(2, 3));
+		p4.setLayout(new GridLayout(2, 1));
 		p4.setBackground(Color.WHITE);
 		p4.setOpaque(true);
+		
+		//panel for showing stopwatch
+		JPanel watchPanel = new JPanel();
+		watchPanel.setLayout(new GridLayout(1,1));
+		watchPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		watchPanel.setBackground(Color.WHITE);
+		watchPanel.setMaximumSize(new Dimension(310, 290));
+		p4.add(watchPanel);
 		
     	JLabel stopwatch = new JLabel("00:00:00");
     	stopwatch.setFont(new Font("Tahoma", Font.BOLD, 30));
     	stopwatch.setHorizontalAlignment(JLabel.CENTER);
     	stopwatch.setVerticalAlignment(JLabel.CENTER);
+    	watchPanel.add(stopwatch);
 		
-		//start, stop and reset buttons
+		//panel for buttons
+		JPanel buttonPanel = new JPanel();
+		BoxLayout boxlayout = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
+		buttonPanel.setLayout(boxlayout);
+		buttonPanel.setBorder(new EmptyBorder(10, 150, 10, 100));
+		buttonPanel.setBackground(Color.WHITE);
+		buttonPanel.setMaximumSize(new Dimension(310, 290));
+		p4.add(buttonPanel);
+		
 		JButton stopwatchStartBtn = new JButton("START");
+		stopwatchStartBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		stopwatchStartBtn.setAlignmentY(Component.TOP_ALIGNMENT);
 		stopwatchStartBtn.setForeground(new Color(50, 205, 50));
 		stopwatchStartBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		stopwatchStartBtn.setHorizontalAlignment(JButton.CENTER);
 		stopwatchStartBtn.setVerticalAlignment(JButton.CENTER);
-		stopwatchStartBtn.setSize(100,100);
+		stopwatchStartBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		stopwatchStartBtn.setMaximumSize((new Dimension(100,50)));
 		
-		JButton stopwatchStopBtn = new JButton("STOP");
+		JButton stopwatchStopBtn = new JButton("PAUSE");
+		stopwatchStopBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		stopwatchStopBtn.setAlignmentY(Component.TOP_ALIGNMENT);
 		stopwatchStopBtn.setForeground(new Color(255, 0, 0));
 		stopwatchStopBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		stopwatchStopBtn.setHorizontalAlignment(JButton.CENTER);
 		stopwatchStopBtn.setVerticalAlignment(JButton.CENTER);
-		stopwatchStopBtn.setSize(100,100);
+		stopwatchStopBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		stopwatchStopBtn.setMaximumSize((new Dimension(100,50)));
 		
 		JButton stopwatchResetBtn = new JButton("RESET");
+		stopwatchResetBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		stopwatchResetBtn.setAlignmentY(Component.TOP_ALIGNMENT);
 		stopwatchResetBtn.setForeground(new Color(32, 178, 170));
 		stopwatchResetBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
 		stopwatchResetBtn.setHorizontalAlignment(JButton.CENTER);
 		stopwatchResetBtn.setVerticalAlignment(JButton.CENTER);
-		stopwatchResetBtn.setSize(100,100);
+		stopwatchResetBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		stopwatchResetBtn.setMaximumSize((new Dimension(100,50)));
 		
-		p4.add(new JLabel(""));
-		p4.add(stopwatch);
-    	p4.add(new JLabel(""));
-    	p4.add(stopwatchStartBtn);
-    	p4.add(stopwatchStopBtn);
-    	p4.add(stopwatchResetBtn);
+		buttonPanel.add(stopwatchStartBtn);
+		buttonPanel.add(stopwatchStopBtn);
+		buttonPanel.add(stopwatchResetBtn);
 		
 	    //When start button is clicked
     	stopwatchStartBtn.addActionListener(new ActionListener(){
