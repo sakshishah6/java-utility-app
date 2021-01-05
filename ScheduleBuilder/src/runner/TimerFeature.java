@@ -14,6 +14,7 @@ import sun.audio.AudioStream;
 
 public class TimerFeature extends Programs {
 
+	Timer t = new Timer();
 	int start;
 	int secOnlyNew = 0;
 	
@@ -137,14 +138,11 @@ public class TimerFeature extends Programs {
 		int min = Integer.parseInt(minute);
 		int sec = Integer.parseInt(second);
 		
-		//convert input hr, min, sec to sec only
 		int secOnly = convertToSeconds(hr, min, sec);
 		
 	    int delay = 1000;
 	    int period = 1000;
-	    Timer t = new Timer();
 	    
-	    //update timerLabel every time the second changes
 	    start = 1;
     	int[] result = convertFromSeconds(secOnly);
     	String finalTime = formatTime(result[0], result[1], result[2]);
@@ -166,6 +164,9 @@ public class TimerFeature extends Programs {
 	    }, delay, period);
 	}
 	
+	public void resetTimer() {
+		t.cancel();
+	}
 	
 	@Override
 	public void runProgram() {
