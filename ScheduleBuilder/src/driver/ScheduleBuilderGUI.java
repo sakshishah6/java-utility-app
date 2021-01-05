@@ -8,9 +8,12 @@ import runner.StopwatchFeature;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +29,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import java.awt.Component;
 
 public class ScheduleBuilderGUI {
 
@@ -116,15 +121,36 @@ public class ScheduleBuilderGUI {
 		p0.setLayout(new GridLayout(2,1));
 		p0.setBackground(Color.WHITE);
 		p0.setOpaque(true);
-		JLabel logo = new JLabel(new ImageIcon("src/media/logo.png"));
-		p0.add(logo);
+	
+        JLabel logo = new JLabel(new ImageIcon("src/media/logo.png"));
 		logo.setHorizontalAlignment(JLabel.CENTER);
-		logo.setVerticalAlignment(JLabel.BOTTOM);
+		logo.setVerticalAlignment(JLabel.CENTER);
 		
-		JLabel copyright = new JLabel("Copyright © 2020 Sakshi Shah & Sharar Noor");
-		p0.add(copyright);
-		copyright.setHorizontalAlignment(JLabel.CENTER);
-		copyright.setVerticalAlignment(JLabel.BOTTOM);
+		p0.add(logo);
+		
+		JPanel infoPanel = new JPanel();
+		BoxLayout boxlayout = new BoxLayout(infoPanel, BoxLayout.Y_AXIS);
+		infoPanel.setLayout(boxlayout);
+		infoPanel.setBorder(new EmptyBorder(125, 20, 10, 20));
+		infoPanel.setBackground(Color.WHITE);
+		p0.add(infoPanel);
+		
+		JLabel version = new JLabel("Version 1.1");
+		version.setAlignmentX(Component.CENTER_ALIGNMENT);
+		version.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel copyright = new JLabel("Copyright © 2020. Schedule Builder.");
+		copyright.setAlignmentX(Component.CENTER_ALIGNMENT);
+		copyright.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel creators = new JLabel("Sakshi Shah & Sharar Noor. All rights reserved.");
+		creators.setHorizontalAlignment(SwingConstants.CENTER);
+		creators.setAlignmentX(Component.CENTER_ALIGNMENT);
+		creators.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		infoPanel.add(version);
+		infoPanel.add(copyright);
+		infoPanel.add(creators);
 	}
 	
 	
@@ -234,26 +260,26 @@ public class ScheduleBuilderGUI {
     	timer.setVerticalAlignment(JLabel.CENTER);
     	
 		//start, stop and reset buttons
-		JButton startBtn = new JButton("START");
-		startBtn.setForeground(new Color(50, 205, 50));
-		startBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
-		startBtn.setHorizontalAlignment(JButton.CENTER);
-		startBtn.setVerticalAlignment(JButton.CENTER);
-		startBtn.setSize(100,100);
+		JButton timerStartBtn = new JButton("START");
+		timerStartBtn.setForeground(new Color(50, 205, 50));
+		timerStartBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		timerStartBtn.setHorizontalAlignment(JButton.CENTER);
+		timerStartBtn.setVerticalAlignment(JButton.CENTER);
+		timerStartBtn.setSize(100,100);
 		
-		JButton pauseBtn = new JButton("PAUSE");
-		pauseBtn.setForeground(new Color(255, 0, 0));
-		pauseBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
-		pauseBtn.setHorizontalAlignment(JButton.CENTER);
-		pauseBtn.setVerticalAlignment(JButton.CENTER);
-		pauseBtn.setSize(100,100);
+		JButton timerPauseBtn = new JButton("PAUSE");
+		timerPauseBtn.setForeground(new Color(255, 0, 0));
+		timerPauseBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		timerPauseBtn.setHorizontalAlignment(JButton.CENTER);
+		timerPauseBtn.setVerticalAlignment(JButton.CENTER);
+		timerPauseBtn.setSize(100,100);
 		
-		JButton resetBtn = new JButton("RESET");
-		resetBtn.setForeground(new Color(32, 178, 170));
-		resetBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
-		resetBtn.setHorizontalAlignment(JButton.CENTER);
-		resetBtn.setVerticalAlignment(JButton.CENTER);
-		resetBtn.setSize(100,100);
+		JButton timerResetBtn = new JButton("RESET");
+		timerResetBtn.setForeground(new Color(32, 178, 170));
+		timerResetBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		timerResetBtn.setHorizontalAlignment(JButton.CENTER);
+		timerResetBtn.setVerticalAlignment(JButton.CENTER);
+		timerResetBtn.setSize(100,100);
 		
 		p3.add(hourLabel);
 		p3.add(minuteLabel);
@@ -264,16 +290,16 @@ public class ScheduleBuilderGUI {
     	p3.add(new JLabel(""));
     	p3.add(timer);
     	p3.add(new JLabel(""));
-    	p3.add(startBtn);
-    	p3.add(pauseBtn);
-    	p3.add(resetBtn);
+    	p3.add(timerStartBtn);
+    	p3.add(timerPauseBtn);
+    	p3.add(timerResetBtn);
     	
     	timerF.setTextFieldFocus(enterHour, "HH");
     	timerF.setTextFieldFocus(enterMin, "MM");
     	timerF.setTextFieldFocus(enterSec, "SS");
 		
 	    //When start button is clicked
-	    startBtn.addActionListener(new ActionListener(){
+	    timerStartBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
@@ -285,7 +311,7 @@ public class ScheduleBuilderGUI {
 	    });
 
 	    //When stop button is clicked
-	    pauseBtn.addActionListener(new ActionListener(){
+	    timerPauseBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent select) {
 	        	
@@ -293,7 +319,7 @@ public class ScheduleBuilderGUI {
 	    });
 		    	    
 	    //When reset button is clicked
-	    resetBtn.addActionListener(new ActionListener(){
+	    timerResetBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	        	enterHour.setText("HH");
@@ -308,15 +334,68 @@ public class ScheduleBuilderGUI {
 	
 	// Stopwatch
 	public static void stopwatch(JPanel p4) {
-		p4.add(new JLabel("Stopwatch"));
-		p4.setLayout(new GridLayout(1, 1));
+		p4.setLayout(new GridLayout(2, 3));
 		p4.setBackground(Color.WHITE);
 		p4.setOpaque(true);
 		
-    	//stopwatch related objects
-		JLabel stopwatchLabel = new JLabel("STOPWATCH");
-		stopwatchLabel.setHorizontalAlignment(JLabel.CENTER);
-		stopwatchLabel.setVerticalAlignment(JLabel.CENTER);
+    	JLabel stopwatch = new JLabel("00:00:00");
+    	stopwatch.setFont(new Font("Tahoma", Font.BOLD, 30));
+    	stopwatch.setHorizontalAlignment(JLabel.CENTER);
+    	stopwatch.setVerticalAlignment(JLabel.CENTER);
+		
+		//start, stop and reset buttons
+		JButton stopwatchStartBtn = new JButton("START");
+		stopwatchStartBtn.setForeground(new Color(50, 205, 50));
+		stopwatchStartBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		stopwatchStartBtn.setHorizontalAlignment(JButton.CENTER);
+		stopwatchStartBtn.setVerticalAlignment(JButton.CENTER);
+		stopwatchStartBtn.setSize(100,100);
+		
+		JButton stopwatchStopBtn = new JButton("STOP");
+		stopwatchStopBtn.setForeground(new Color(255, 0, 0));
+		stopwatchStopBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		stopwatchStopBtn.setHorizontalAlignment(JButton.CENTER);
+		stopwatchStopBtn.setVerticalAlignment(JButton.CENTER);
+		stopwatchStopBtn.setSize(100,100);
+		
+		JButton stopwatchResetBtn = new JButton("RESET");
+		stopwatchResetBtn.setForeground(new Color(32, 178, 170));
+		stopwatchResetBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		stopwatchResetBtn.setHorizontalAlignment(JButton.CENTER);
+		stopwatchResetBtn.setVerticalAlignment(JButton.CENTER);
+		stopwatchResetBtn.setSize(100,100);
+		
+		p4.add(new JLabel(""));
+		p4.add(stopwatch);
+    	p4.add(new JLabel(""));
+    	p4.add(stopwatchStartBtn);
+    	p4.add(stopwatchStopBtn);
+    	p4.add(stopwatchResetBtn);
+		
+	    //When start button is clicked
+    	stopwatchStartBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+
+	        };
+	    });
+
+	    //When stop button is clicked
+    	stopwatchStopBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent select) {
+	        	
+	        };
+	    });
+		    	    
+	    //When reset button is clicked
+    	stopwatchResetBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	        	stopwatch.setText("00:00:00");
+	        };
+	    });
+		
 	}
 	
 	
