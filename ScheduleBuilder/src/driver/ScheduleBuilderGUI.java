@@ -10,6 +10,10 @@ import java.awt.Image;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,12 +25,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.Component;
-import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
 
 public class ScheduleBuilderGUI {
@@ -134,16 +134,16 @@ public class ScheduleBuilderGUI {
 		
 		JLabel version = new JLabel("Version 1.1");
 		version.setAlignmentX(Component.CENTER_ALIGNMENT);
-		version.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		version.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JLabel copyright = new JLabel("Copyright © 2020. Schedule Builder.");
 		copyright.setAlignmentX(Component.CENTER_ALIGNMENT);
-		copyright.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		copyright.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JLabel creators = new JLabel("Sakshi Shah & Sharar Noor. All rights reserved.");
 		creators.setHorizontalAlignment(SwingConstants.CENTER);
 		creators.setAlignmentX(Component.CENTER_ALIGNMENT);
-		creators.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		creators.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		infoPanel.add(version);
 		infoPanel.add(copyright);
@@ -366,7 +366,6 @@ public class ScheduleBuilderGUI {
 	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
 	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time.\nHOUR < 13\nMINUTE < 60\nSECOND < 60");
 	        	}
-	        	
 	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText());
 	        };
 	    });
