@@ -164,6 +164,10 @@ public class TimerFeature extends Programs {
 	    }, delay, period);
 	}
 	
+	public void pauseTimer() {
+		//t.
+	}
+	
 	public void resetTimer() {
 		t.cancel();
 	}
