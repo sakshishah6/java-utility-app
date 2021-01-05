@@ -364,7 +364,7 @@ public class ScheduleBuilderGUI {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
-	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time. (HR <= 12, MIN <= 59, SEC <= 59).");
+	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time.\nHOUR < 13\nMINUTE < 60\nSECOND < 60");
 	        	}
 	        	
 	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText());
@@ -383,6 +383,7 @@ public class ScheduleBuilderGUI {
 	    timerResetBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+	        	timerF.resetTimer();
 	        	enterHour.setText("HH");
 	        	enterMin.setText("MM");
 	        	enterSec.setText("SS");
@@ -432,7 +433,7 @@ public class ScheduleBuilderGUI {
 		stopwatchStartBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		stopwatchStartBtn.setMaximumSize((new Dimension(100,50)));
 		
-		JButton stopwatchStopBtn = new JButton("PAUSE");
+		JButton stopwatchStopBtn = new JButton("STOP");
 		stopwatchStopBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		stopwatchStopBtn.setAlignmentY(Component.TOP_ALIGNMENT);
 		stopwatchStopBtn.setForeground(new Color(255, 0, 0));
