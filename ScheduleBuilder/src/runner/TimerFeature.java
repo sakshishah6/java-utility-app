@@ -3,14 +3,16 @@ package runner;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 public class TimerFeature extends Programs {
 
@@ -122,6 +124,20 @@ public class TimerFeature extends Programs {
 	}
 	
 	public void playMusic(String filepath) {
+	      try {
+	    	  File f = new File("./" + filepath);
+	    	  AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+	          Clip clip = AudioSystem.getClip();
+	          clip.open(audioIn);
+	          clip.start();
+	       } catch (UnsupportedAudioFileException e) {
+	          e.printStackTrace();
+	       } catch (IOException e) {
+	          e.printStackTrace();
+	       } catch (LineUnavailableException e) {
+	          e.printStackTrace();
+	       }
+		/*
 		InputStream music;
 		try {
 			music = new FileInputStream(new File(filepath));
@@ -131,6 +147,7 @@ public class TimerFeature extends Programs {
 		catch(Exception e) {
 			
 		}
+		*/
 	}
 	
 	public void runTimer(JLabel timerLbl, String hour, String minute, String second) {
