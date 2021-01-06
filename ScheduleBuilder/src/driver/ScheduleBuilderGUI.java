@@ -202,7 +202,7 @@ public class ScheduleBuilderGUI {
         }
       });
       
-      southPanel.add(clearField, BorderLayout.EAST);
+      southPanel.add(clearField);
       
       p1.add(southPanel, BorderLayout.SOUTH);
 //      calendarF.runProgram();
@@ -214,19 +214,39 @@ public class ScheduleBuilderGUI {
       ScheduleFeature scheduleF = new ScheduleFeature();
    
       p2.setLayout(new BorderLayout());
+      
+      JPanel centerPanel = new JPanel(new GridLayout(1, 1));
+      
       JTable newTable = scheduleF.getTableModel();
-      p2.add(new JScrollPane(newTable), BorderLayout.NORTH);
+      centerPanel.add(new JScrollPane(newTable));
+      
+      p2.add(centerPanel, BorderLayout.CENTER);
   
       p2.setBackground(Color.WHITE);
       p2.setOpaque(true);
       
-      JPanel southPanel = new JPanel(new BorderLayout());
+      JPanel southPanel = new JPanel();
+      BoxLayout southLayout = new BoxLayout(southPanel, BoxLayout.Y_AXIS);
+      southPanel.setLayout(southLayout);
+      
+      centerPanel.setMaximumSize(new Dimension(620, 200));
+      centerPanel.setBorder(new EmptyBorder(20, 20, 10, 20));
+      southPanel.setMaximumSize(new Dimension(620, 380));
+      southPanel.setBorder(new EmptyBorder(10, 20, 20, 20));
+      
+      JLabel notesLabel = new JLabel("NOTES");
+      notesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+      notesLabel.setHorizontalAlignment(SwingConstants.LEFT);
+      notesLabel.setVerticalAlignment(SwingConstants.TOP);
+      southPanel.add(notesLabel);
       
       JTextArea notes = new JTextArea();
-      notes.setRows(4);
+      notesLabel.setLabelFor(notes);
+      notes.setRows(8);
       notes.setMaximumSize(new Dimension(50, 50));
       
-      southPanel.add(new JScrollPane(notes), BorderLayout.CENTER);
+      southPanel.add(new JScrollPane(notes));
+     
       
       JButton clearField = new JButton("Clear Field");
       
@@ -243,12 +263,20 @@ public class ScheduleBuilderGUI {
             newTable.setValueAt(new String(),i, 1);
             newTable.setValueAt(false, i, 2);
           }
+          
+          notes.setText(new String());
+          
         }
       });
+      clearField.setSize(20, 20);
       
-      southPanel.add(clearField, BorderLayout.SOUTH);
+      clearField.setAlignmentX(Component.CENTER_ALIGNMENT);
+      //clearField.setBorder(new EmptyBorder(20, 5, 20, 20));
       
-      p2.add(southPanel, BorderLayout.CENTER);
+      southPanel.add(clearField);
+      
+      
+      p2.add(southPanel, BorderLayout.SOUTH);
     }
     
 	
