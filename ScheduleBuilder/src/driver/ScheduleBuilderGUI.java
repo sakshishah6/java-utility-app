@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -151,8 +152,8 @@ public class ScheduleBuilderGUI {
 	}
 	
 	
-	// Calendar
-	public static void calendar(JPanel p1) {
+    // Calendar
+    public static void calendar(JPanel p1) {
       CalendarFeature calendarF = new CalendarFeature();
       
       p1.setLayout(new BorderLayout());
@@ -160,36 +161,72 @@ public class ScheduleBuilderGUI {
       p1.add(new JScrollPane(newTable), BorderLayout.CENTER);
 
 //      p1.setLayout(new GridLayout(3, 1));
-//      p1.setBackground(Color.WHITE);
-//      p1.setOpaque(true);
-//      JLabel dateLabel = new JLabel("Date: ");
-//      p1.add(dateLabel);
-//      dateLabel.setHorizontalAlignment(JLabel.LEFT);
-//      dateLabel.setVerticalAlignment(JLabel.CENTER);
-//
-//      JLabel timeLabel = new JLabel("Time: ");
-//      p1.add(timeLabel);
-//      timeLabel.setHorizontalAlignment(JLabel.LEFT);
-//      timeLabel.setVerticalAlignment(JLabel.CENTER);
-//
-//      calendarF.getDate(dateLabel);
-//      calendarF.getTime(timeLabel);
+      p1.setBackground(Color.WHITE);
+      p1.setOpaque(true);
+      
+      JPanel northPanel = new JPanel(new BorderLayout());
+      
+      JLabel dateLabel = new JLabel("Date: ");
+      dateLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+      northPanel.add(dateLabel, BorderLayout.WEST);
+      dateLabel.setHorizontalAlignment(JLabel.LEFT);
+      dateLabel.setVerticalAlignment(JLabel.CENTER);
+
+      JLabel timeLabel = new JLabel("Time: ");
+      timeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+      northPanel.add(timeLabel, BorderLayout.EAST);
+      timeLabel.setHorizontalAlignment(JLabel.LEFT);
+      timeLabel.setVerticalAlignment(JLabel.CENTER);
+
+      calendarF.getDate(dateLabel);
+      calendarF.getTime(timeLabel);
+      
+      p1.add(northPanel, BorderLayout.NORTH);
+      
+      JPanel southPanel = new JPanel();
+      
+      JButton clearField = new JButton("Clear Field");
+      
+      clearField.addActionListener(new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+          //GET SELECTED ROW
+          newTable.removeEditor();
+          newTable.removeColumnSelectionInterval(0, newTable.getColumnCount() - 1);
+          newTable.removeRowSelectionInterval(0, newTable.getRowCount() - 1);
+          for(int i=0;i<newTable.getRowCount();i++)
+          {
+            newTable.setValueAt(new String(),i, 1);
+          }
+        }
+      });
+      
+      southPanel.add(clearField, BorderLayout.EAST);
+      
+      p1.add(southPanel, BorderLayout.SOUTH);
 //      calendarF.runProgram();
-	}
-	
-	
-	// Schedule
-	public static void schedule(JPanel p2) {
-	  ScheduleFeature scheduleF = new ScheduleFeature();
+    }
+    
+    
+    // Schedule
+    public static void schedule(JPanel p2) {
+      ScheduleFeature scheduleF = new ScheduleFeature();
    
       p2.setLayout(new BorderLayout());
       JTable newTable = scheduleF.getTableModel();
-      p2.add(new JScrollPane(newTable), BorderLayout.CENTER);
+      p2.add(new JScrollPane(newTable), BorderLayout.NORTH);
   
       p2.setBackground(Color.WHITE);
       p2.setOpaque(true);
       
-      p2.add(new TextField(), BorderLayout.SOUTH);
+      JPanel southPanel = new JPanel(new BorderLayout());
+      
+      JTextArea notes = new JTextArea();
+      notes.setRows(4);
+      notes.setMaximumSize(new Dimension(50, 50));
+      
+      southPanel.add(new JScrollPane(notes), BorderLayout.CENTER);
       
       JButton clearField = new JButton("Clear Field");
       
@@ -209,7 +246,9 @@ public class ScheduleBuilderGUI {
         }
       });
       
-      p2.add(clearField, BorderLayout.SOUTH);    
+      southPanel.add(clearField, BorderLayout.SOUTH);
+      
+      p2.add(southPanel, BorderLayout.CENTER);
     }
     
 	
