@@ -432,7 +432,7 @@ public class ScheduleBuilderGUI {
     	timerF.setTextFieldFocus(enterHour, "HH");
     	timerF.setTextFieldFocus(enterMin, "MM");
     	timerF.setTextFieldFocus(enterSec, "SS");
-		
+    	
 	    //When start button is clicked
 	    timerStartBtn.addActionListener(new ActionListener(){
 	        @Override
@@ -440,15 +440,24 @@ public class ScheduleBuilderGUI {
 	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
 	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time.\nHOUR < 13\nMINUTE < 60\nSECOND < 60");
 	        	}
-	        	else timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 1);
+	        	else {
+	        		timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 1);
+            		timerStartBtn.setEnabled(false);
+            		timerPauseBtn.setEnabled(true);
+            		timerResetBtn.setEnabled(true);
+	        	}
 	        };
 	    });
-
+	    
 	    //When stop button is clicked
 	    timerPauseBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent select) {
+	        	timerPauseBtn.setEnabled(false);
 	        	timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 2);
+        		timerStartBtn.setEnabled(true);
+        		timerPauseBtn.setEnabled(false);
+        		timerResetBtn.setEnabled(true);
 	        };
 	    });
 		    	    
@@ -456,16 +465,20 @@ public class ScheduleBuilderGUI {
 	    timerResetBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+	        	//timerResetBtn.setEnabled(false);
 	        	timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 3);
 	        	enterHour.setText("HH");
 	        	enterMin.setText("MM");
 	        	enterSec.setText("SS");
 	        	timer.setText("00:00:00");
+        		timerStartBtn.setEnabled(true);
+        		timerPauseBtn.setEnabled(false);
+        		timerResetBtn.setEnabled(false);
 	        };
 	    });
 
 	}
-	
+
 	
 	// Stopwatch
 	public static void stopwatch(JPanel p4) {
