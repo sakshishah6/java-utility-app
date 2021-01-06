@@ -158,13 +158,20 @@ public class ScheduleBuilderGUI {
       
       p1.setLayout(new BorderLayout());
       JTable newTable = calendarF.getTableModel();
-      p1.add(new JScrollPane(newTable), BorderLayout.CENTER);
+      
+      JPanel centerPanel = new JPanel(new GridLayout(1, 1));
+      centerPanel.add(new JScrollPane(newTable));
+      
+      centerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+      
+      p1.add(centerPanel, BorderLayout.CENTER);
 
-//      p1.setLayout(new GridLayout(3, 1));
       p1.setBackground(Color.WHITE);
       p1.setOpaque(true);
       
       JPanel northPanel = new JPanel(new BorderLayout());
+      
+      northPanel.setBorder(new EmptyBorder(20, 20, 0, 20));
       
       JLabel dateLabel = new JLabel("Date: ");
       dateLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
