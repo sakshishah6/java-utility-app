@@ -5,15 +5,16 @@ import runner.ScheduleFeature;
 import runner.TimerFeature;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Component;
 import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -82,23 +83,23 @@ public class ScheduleBuilderGUI {
 		// Add all panels to the tabbedPane & to frame
 		tabbedPane.addTab("Home Page", p0);
 		tabbedPane.addTab("Home Page", resizedTab0Icon, p0);
-		tabbedPane.setBackgroundAt(0, Color.WHITE);
+		tabbedPane.setBackgroundAt(0, new Color(255, 255, 255));
 		
 		tabbedPane.addTab("Calendar", p1);
 		tabbedPane.addTab("Calendar", resizedTab1Icon, p1);
-		tabbedPane.setBackgroundAt(1, Color.WHITE);
+		tabbedPane.setBackgroundAt(1, new Color(255, 255, 255));
 		
 		tabbedPane.addTab("Schedule", p2);
 		tabbedPane.addTab("Schedule", resizedTab2Icon, p2);
-		tabbedPane.setBackgroundAt(2, Color.WHITE);
+		tabbedPane.setBackgroundAt(2, new Color(255, 255, 255));
 		
 		tabbedPane.addTab("Timer", p3);
 		tabbedPane.addTab("Timer", resizedTab3Icon, p3);
-		tabbedPane.setBackgroundAt(3, Color.WHITE);
+		tabbedPane.setBackgroundAt(3, new Color(255, 255, 255));
 		
 		tabbedPane.addTab("Stopwatch", p4);
 		tabbedPane.addTab("Stopwatch", resizedTab4Icon, p4);
-		tabbedPane.setBackgroundAt(4, Color.WHITE);
+		tabbedPane.setBackgroundAt(4, new Color(255, 255, 255));
 		
 		frame.getContentPane().add(tabbedPane);
 		frame.setVisible(true);
@@ -130,8 +131,9 @@ public class ScheduleBuilderGUI {
 		JPanel infoPanel = new JPanel();
 		BoxLayout boxlayout = new BoxLayout(infoPanel, BoxLayout.Y_AXIS);
 		infoPanel.setLayout(boxlayout);
-		infoPanel.setBorder(new EmptyBorder(125, 20, 10, 20));
+		infoPanel.setBorder(new EmptyBorder(10, 20, 10, 10));
 		infoPanel.setBackground(new Color(255, 228, 225));
+		infoPanel.setMaximumSize(new Dimension(600, 180));
 		p0.add(infoPanel);
 		
 		JLabel version = new JLabel("Version 1.1");
@@ -146,7 +148,6 @@ public class ScheduleBuilderGUI {
 		creators.setHorizontalAlignment(SwingConstants.CENTER);
 		creators.setAlignmentX(Component.CENTER_ALIGNMENT);
 		creators.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
 		infoPanel.add(version);
 		infoPanel.add(copyright);
 		infoPanel.add(creators);
@@ -308,7 +309,7 @@ public class ScheduleBuilderGUI {
 		BoxLayout boxlayout1 = new BoxLayout(timerInfoPanel, BoxLayout.X_AXIS);
 		timerInfoPanel.setLayout(boxlayout1);
 		timerInfoPanel.setBorder(new EmptyBorder(20, 10, 10, 5));
-		timerInfoPanel.setBackground(Color.WHITE);
+		timerInfoPanel.setBackground(new Color(255, 228, 225));
 		p3.add(timerInfoPanel);
 		
 		//additional labelPanel within timerInfoPanel
@@ -317,7 +318,7 @@ public class ScheduleBuilderGUI {
 		labelPanel.setLayout(boxlayout2);
 		labelPanel.setPreferredSize((new Dimension(300, 100)));
 		labelPanel.setBorder(new EmptyBorder(20, 200, 20, 5));
-		labelPanel.setBackground(Color.WHITE);
+		labelPanel.setBackground(new Color(255, 228, 225));
 		timerInfoPanel.add(labelPanel);
 		
     	JLabel hourLabel = new JLabel("Hour:");
@@ -347,7 +348,7 @@ public class ScheduleBuilderGUI {
 		BoxLayout boxlayout3 = new BoxLayout(textFieldPanel, BoxLayout.Y_AXIS);
 		textFieldPanel.setLayout(boxlayout3);
 		textFieldPanel.setBorder(new EmptyBorder(20, 5, 20, 20));
-		textFieldPanel.setBackground(Color.WHITE);
+		textFieldPanel.setBackground(new Color(255, 228, 225));
 		textFieldPanel.setPreferredSize((new Dimension(300, 100)));
 		timerInfoPanel.add(textFieldPanel);
     	
@@ -378,15 +379,16 @@ public class ScheduleBuilderGUI {
 		BoxLayout boxlayout4 = new BoxLayout(generalTimerPanel, BoxLayout.Y_AXIS);
 		generalTimerPanel.setLayout(boxlayout4);
 		generalTimerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		generalTimerPanel.setBackground(Color.WHITE);
+		generalTimerPanel.setBackground(new Color(255, 228, 225));
 		p3.add(generalTimerPanel);
 		
 		//additional timerPanel within the generalTimerPanel
 		JPanel timerPanel = new JPanel();
-		BoxLayout boxlayout5 = new BoxLayout(timerPanel, BoxLayout.X_AXIS);
-		timerPanel.setLayout(boxlayout5);
-		timerPanel.setBorder(new EmptyBorder(10, 30, 30, 30));
-		timerPanel.setBackground(Color.WHITE);
+		timerPanel.setLayout(new GridLayout(1,1));
+		timerPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
+		timerPanel.setBorder(BorderFactory.createEtchedBorder(1));
+		timerPanel.setMaximumSize(new Dimension(200, 75));
+		timerPanel.setBackground(new Color(255, 255, 255));
 		generalTimerPanel.add(timerPanel);
 		
     	JLabel timer = new JLabel("00:00:00");
@@ -400,7 +402,7 @@ public class ScheduleBuilderGUI {
 		BoxLayout boxlayout6 = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
 		buttonPanel.setLayout(boxlayout6);
 		buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		buttonPanel.setBackground(Color.WHITE);
+		buttonPanel.setBackground(new Color(255, 228, 225));
 		buttonPanel.setMaximumSize(new Dimension(300, 100));
 		generalTimerPanel.add(buttonPanel);
     	
@@ -494,15 +496,19 @@ public class ScheduleBuilderGUI {
 		//panel for showing stopwatch
 		JPanel watchPanel = new JPanel();
 		watchPanel.setLayout(new GridLayout(1,1));
-		watchPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		watchPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
 		watchPanel.setBackground(new Color(255, 228, 225));
 		watchPanel.setMaximumSize(new Dimension(310, 290));
 		p4.add(watchPanel);
 		
     	JLabel stopwatch = new JLabel("00:00:00");
+    	stopwatch.setPreferredSize(new Dimension(100, 15));
+    	stopwatch.setBackground(Color.WHITE);
+    	stopwatch.setAlignmentX(Component.CENTER_ALIGNMENT);
     	stopwatch.setFont(new Font("Tahoma", Font.BOLD, 30));
     	stopwatch.setHorizontalAlignment(JLabel.CENTER);
     	stopwatch.setVerticalAlignment(JLabel.CENTER);
+    	stopwatch.setBorder(BorderFactory.createEtchedBorder(1));
     	watchPanel.add(stopwatch);
 		
 		//panel for buttons
