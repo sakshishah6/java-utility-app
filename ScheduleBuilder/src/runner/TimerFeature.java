@@ -178,16 +178,21 @@ public class TimerFeature extends Programs {
     	//option 1 - start
     	if (option==1) {
 		    t.scheduleAtFixedRate(task, delay, period);
+		    System.out.println("start");
     	}
     	
     	//option 2 - pause
     	else if (option==2) {
-    		
+    		task.cancel();
+    		System.out.println("pause");
     	}
     	
     	//option 3 - reset
     	else if (option==3) {
+    		t.cancel();
+    		t.purge();
     		task.cancel();
+    		System.out.println("reset");
     	}
 	}
 	
