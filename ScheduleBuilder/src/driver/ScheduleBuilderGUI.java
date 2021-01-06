@@ -121,6 +121,7 @@ public class ScheduleBuilderGUI {
 		p0.setOpaque(true);
 	
         JLabel logo = new JLabel(new ImageIcon("src/media/logo.png"));
+        logo.setBackground(new Color(255, 239, 213));
 		logo.setHorizontalAlignment(JLabel.CENTER);
 		logo.setVerticalAlignment(JLabel.CENTER);
 		
@@ -130,7 +131,7 @@ public class ScheduleBuilderGUI {
 		BoxLayout boxlayout = new BoxLayout(infoPanel, BoxLayout.Y_AXIS);
 		infoPanel.setLayout(boxlayout);
 		infoPanel.setBorder(new EmptyBorder(125, 20, 10, 20));
-		infoPanel.setBackground(Color.WHITE);
+		infoPanel.setBackground(new Color(255, 228, 225));
 		p0.add(infoPanel);
 		
 		JLabel version = new JLabel("Version 1.1");
@@ -160,6 +161,7 @@ public class ScheduleBuilderGUI {
       JTable newTable = calendarF.getTableModel();
       
       JPanel centerPanel = new JPanel(new GridLayout(1, 1));
+      centerPanel.setBackground(new Color(255, 228, 225));
       centerPanel.add(new JScrollPane(newTable));
       
       centerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -170,6 +172,7 @@ public class ScheduleBuilderGUI {
       p1.setOpaque(true);
       
       JPanel northPanel = new JPanel(new BorderLayout());
+      northPanel.setBackground(new Color(255, 228, 225));
       
       northPanel.setBorder(new EmptyBorder(20, 20, 0, 20));
       
@@ -191,6 +194,7 @@ public class ScheduleBuilderGUI {
       p1.add(northPanel, BorderLayout.NORTH);
       
       JPanel southPanel = new JPanel();
+      southPanel.setBackground(new Color(255, 228, 225));
       
       JButton clearField = new JButton("Clear Field");
       
@@ -212,17 +216,17 @@ public class ScheduleBuilderGUI {
       southPanel.add(clearField);
       
       p1.add(southPanel, BorderLayout.SOUTH);
-//      calendarF.runProgram();
     }
     
     
     // Schedule
     public static void schedule(JPanel p2) {
       ScheduleFeature scheduleF = new ScheduleFeature();
-   
+        
       p2.setLayout(new BorderLayout());
       
       JPanel centerPanel = new JPanel(new GridLayout(1, 1));
+      centerPanel.setBackground(new Color(255, 228, 225));
       
       JTable newTable = scheduleF.getTableModel();
       centerPanel.add(new JScrollPane(newTable));
@@ -233,6 +237,7 @@ public class ScheduleBuilderGUI {
       p2.setOpaque(true);
       
       JPanel southPanel = new JPanel();
+      southPanel.setBackground(new Color(255, 228, 225));
       BoxLayout southLayout = new BoxLayout(southPanel, BoxLayout.Y_AXIS);
       southPanel.setLayout(southLayout);
       
@@ -477,7 +482,7 @@ public class ScheduleBuilderGUI {
 		JPanel watchPanel = new JPanel();
 		watchPanel.setLayout(new GridLayout(1,1));
 		watchPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		watchPanel.setBackground(Color.WHITE);
+		watchPanel.setBackground(new Color(255, 228, 225));
 		watchPanel.setMaximumSize(new Dimension(310, 290));
 		p4.add(watchPanel);
 		
@@ -492,7 +497,7 @@ public class ScheduleBuilderGUI {
 		BoxLayout boxlayout = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
 		buttonPanel.setLayout(boxlayout);
 		buttonPanel.setBorder(new EmptyBorder(10, 150, 10, 100));
-		buttonPanel.setBackground(Color.WHITE);
+		buttonPanel.setBackground(new Color(255, 228, 225));
 		buttonPanel.setMaximumSize(new Dimension(310, 290));
 		p4.add(buttonPanel);
 		
@@ -554,8 +559,7 @@ public class ScheduleBuilderGUI {
 	        };
 	    });
 		
-	}
-	
+	}	
 	
 	// Main
 	public static void main(String[] args) {
