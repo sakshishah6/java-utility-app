@@ -12,7 +12,9 @@ public class ScheduleFeature extends Programs {
         //THE MODEL OF OUR TABLE
         DefaultTableModel model=new DefaultTableModel()
         {
-          public Class<?> getColumnClass(int column)
+			private static final long serialVersionUID = 1L;
+
+		public Class<?> getColumnClass(int column)
           {
             switch(column)
             {
