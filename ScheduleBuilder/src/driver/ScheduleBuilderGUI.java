@@ -306,9 +306,7 @@ public class ScheduleBuilderGUI {
 		
 		//panel for timer info
 		JPanel timerInfoPanel = new JPanel();
-		BoxLayout boxlayout1 = new BoxLayout(timerInfoPanel, BoxLayout.X_AXIS);
-		timerInfoPanel.setLayout(boxlayout1);
-		timerInfoPanel.setBorder(new EmptyBorder(20, 10, 10, 5));
+		timerInfoPanel.setLayout(new GridLayout(1,2));
 		timerInfoPanel.setBackground(new Color(255, 228, 225));
 		p3.add(timerInfoPanel);
 		
@@ -316,8 +314,7 @@ public class ScheduleBuilderGUI {
 		JPanel labelPanel = new JPanel();
 		BoxLayout boxlayout2 = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);
 		labelPanel.setLayout(boxlayout2);
-		labelPanel.setPreferredSize((new Dimension(300, 100)));
-		labelPanel.setBorder(new EmptyBorder(20, 200, 20, 5));
+		labelPanel.setBorder(new EmptyBorder(75, 200, 20, 3));
 		labelPanel.setBackground(new Color(255, 228, 225));
 		timerInfoPanel.add(labelPanel);
 		
@@ -347,9 +344,8 @@ public class ScheduleBuilderGUI {
 		JPanel textFieldPanel = new JPanel();
 		BoxLayout boxlayout3 = new BoxLayout(textFieldPanel, BoxLayout.Y_AXIS);
 		textFieldPanel.setLayout(boxlayout3);
-		textFieldPanel.setBorder(new EmptyBorder(20, 5, 20, 20));
+		textFieldPanel.setBorder(new EmptyBorder(85, 3, 20, 200));
 		textFieldPanel.setBackground(new Color(255, 228, 225));
-		textFieldPanel.setPreferredSize((new Dimension(300, 100)));
 		timerInfoPanel.add(textFieldPanel);
     	
     	JTextField enterHour = new JTextField("HH");
@@ -385,7 +381,6 @@ public class ScheduleBuilderGUI {
 		//additional timerPanel within the generalTimerPanel
 		JPanel timerPanel = new JPanel();
 		timerPanel.setLayout(new GridLayout(1,1));
-		timerPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
 		timerPanel.setBorder(BorderFactory.createEtchedBorder(1));
 		timerPanel.setMaximumSize(new Dimension(200, 75));
 		timerPanel.setBackground(new Color(255, 255, 255));
@@ -401,7 +396,7 @@ public class ScheduleBuilderGUI {
 		JPanel buttonPanel = new JPanel();
 		BoxLayout boxlayout6 = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
 		buttonPanel.setLayout(boxlayout6);
-		buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		buttonPanel.setBorder(new EmptyBorder(50, 10, 10, 10));
 		buttonPanel.setBackground(new Color(255, 228, 225));
 		buttonPanel.setMaximumSize(new Dimension(300, 100));
 		generalTimerPanel.add(buttonPanel);
@@ -496,25 +491,30 @@ public class ScheduleBuilderGUI {
 		//panel for showing stopwatch
 		JPanel watchPanel = new JPanel();
 		watchPanel.setLayout(new GridLayout(1,1));
-		watchPanel.setBorder(new EmptyBorder(100, 100, 100, 100));
+		watchPanel.setBorder(new EmptyBorder(90, 200, 90, 200));
 		watchPanel.setBackground(new Color(255, 228, 225));
 		watchPanel.setMaximumSize(new Dimension(310, 290));
 		p4.add(watchPanel);
 		
+		JPanel stopwatchPanel = new JPanel();
+		stopwatchPanel.setLayout(new GridLayout(1, 1));
+		stopwatchPanel.setBorder(BorderFactory.createEtchedBorder(1));
+		stopwatchPanel.setMaximumSize(new Dimension(200, 100));
+		stopwatchPanel.setBackground(new Color(255, 255, 255));
+		watchPanel.add(stopwatchPanel);
+		
     	JLabel stopwatch = new JLabel("00:00:00");
-    	stopwatch.setPreferredSize(new Dimension(100, 15));
-    	stopwatch.setBackground(Color.WHITE);
-    	stopwatch.setAlignmentX(Component.CENTER_ALIGNMENT);
     	stopwatch.setFont(new Font("Tahoma", Font.BOLD, 30));
     	stopwatch.setHorizontalAlignment(JLabel.CENTER);
     	stopwatch.setVerticalAlignment(JLabel.CENTER);
-    	stopwatch.setBorder(BorderFactory.createEtchedBorder(1));
-    	watchPanel.add(stopwatch);
-		
+    	stopwatch.setMaximumSize(new Dimension(200, 100));
+    	stopwatchPanel.add(stopwatch);
+    	
+    	
 		//panel for buttons
 		JPanel buttonPanel = new JPanel();
-		BoxLayout boxlayout = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
-		buttonPanel.setLayout(boxlayout);
+		BoxLayout boxlayout2 = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
+		buttonPanel.setLayout(boxlayout2);
 		buttonPanel.setBorder(new EmptyBorder(10, 150, 10, 100));
 		buttonPanel.setBackground(new Color(255, 228, 225));
 		buttonPanel.setMaximumSize(new Dimension(310, 290));
