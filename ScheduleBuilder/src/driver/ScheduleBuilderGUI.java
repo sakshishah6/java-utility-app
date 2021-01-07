@@ -396,7 +396,7 @@ public class ScheduleBuilderGUI {
 		JPanel buttonPanel = new JPanel();
 		BoxLayout boxlayout6 = new BoxLayout(buttonPanel, BoxLayout.X_AXIS);
 		buttonPanel.setLayout(boxlayout6);
-		buttonPanel.setBorder(new EmptyBorder(50, 10, 10, 10));
+		buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		buttonPanel.setBackground(new Color(255, 228, 225));
 		buttonPanel.setMaximumSize(new Dimension(300, 100));
 		generalTimerPanel.add(buttonPanel);
@@ -478,7 +478,6 @@ public class ScheduleBuilderGUI {
         		timerResetBtn.setEnabled(false);
 	        };
 	    });
-
 	}
 
 	
@@ -517,7 +516,7 @@ public class ScheduleBuilderGUI {
 		buttonPanel.setLayout(boxlayout2);
 		buttonPanel.setBorder(new EmptyBorder(10, 150, 10, 100));
 		buttonPanel.setBackground(new Color(255, 228, 225));
-		buttonPanel.setMaximumSize(new Dimension(310, 290));
+		buttonPanel.setMaximumSize(new Dimension(300, 290));
 		p4.add(buttonPanel);
 		
 		JButton stopwatchStartBtn = new JButton("START");
@@ -579,6 +578,7 @@ public class ScheduleBuilderGUI {
 	    });
 		
 	}	
+
 	
 	// Main
 	public static void main(String[] args) {
