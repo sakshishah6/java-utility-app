@@ -13,7 +13,23 @@ public class CalendarFeature extends Programs {
 		int month = cal.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
 		int year = cal.get(Calendar.YEAR);
-		dateLabel.setText("Date: "+(month+1)+"/"+day+"/"+year);
+		
+		String longMonth=null;
+		
+		if (month==0) longMonth="Jan.";
+		else if (month==1) longMonth="Feb.";
+		else if (month==2) longMonth="Mar.";
+		else if (month==3) longMonth="Apr.";
+		else if (month==4) longMonth="May";
+		else if (month==5) longMonth="Jun";
+		else if (month==6) longMonth="Jul.";
+		else if (month==7) longMonth="Aug.";
+		else if (month==8) longMonth="Sep.";
+		else if (month==9) longMonth="Oct.";
+		else if (month==10) longMonth="Nov.";
+		else if (month==11) longMonth="Dec.";
+		
+		dateLabel.setText("Date: "+(longMonth)+" "+day+", "+year);
 	}
 	
 	public void getTime(JLabel timeLabel) {
