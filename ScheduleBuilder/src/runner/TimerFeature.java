@@ -1,5 +1,7 @@
 package runner;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
@@ -11,13 +13,21 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class TimerFeature extends Programs {
 
-	int start;
+	long delay = 1000;
+	long period = 1000;
+	int start = 0;
 	int secOnlyNew = 0;
+	int pauseHr = 0;
+	int pauseMin = 0;
+	int pauseSec = 0;
+	TimerTask task = null;
+	static Timer t = null;
 	
 	public void setTextFieldFocus(JTextField enterField, String t) {
 
@@ -110,9 +120,8 @@ public class TimerFeature extends Programs {
 		return formattedHour+":"+formattedMinute+":"+formattedSecond;
 	}
 	
-	public int setInterval(int seconds, Timer t) {
-	    start = 0;
-		if (seconds == 1) {
+	public int countDown(int seconds, Timer t) {
+		if (seconds==1) {
 			t.cancel();
 			playMusic("src/media/timer sound.mp3");
 		}
@@ -135,6 +144,150 @@ public class TimerFeature extends Programs {
 	       }
 	}
 	
+
+	public TimerTask startTimer(Timer t, TimerTask task, int h, int m, int s, JLabel timerLabel) {
+	    int secOnly = convertToSeconds(h, m, s);
+    	task = new TimerTask() {
+	        public void run() {
+	        	if (start==0) {
+	        		secOnlyNew = countDown(secOnly, t);
+	        		start = 1;
+	        	}
+	        	else {
+		        	secOnlyNew = countDown(secOnlyNew, t);
+		        	System.out.println(secOnlyNew);
+	        	}
+	        	int[] result = convertFromSeconds(secOnlyNew);
+	        	String finalTime = formatTime(result[0], result[1], result[2]);
+	        	timerLabel.setText(finalTime);
+	        }
+    	};
+    	
+    	t.scheduleAtFixedRate(task, delay, period);
+    	
+	    int[] result = convertFromSeconds(secOnly);
+	    String finalTime = formatTime(result[0], result[1], result[2]);
+	    timerLabel.setText(finalTime);
+	    
+	    //start = 0;
+	    
+	    return task;
+	}
+	
+	
+	public TimerTask pauseTimer(Timer t, TimerTask task, JLabel timerLabel) {
+		task.cancel();
+		
+		String hour = "" + (timerLabel.getText()).charAt(0) + (timerLabel.getText()).charAt(1);
+		String minute = "" + (timerLabel.getText()).charAt(3) + (timerLabel.getText()).charAt(4);
+		String second = "" + (timerLabel.getText()).charAt(6) + (timerLabel.getText()).charAt(7);
+		
+		pauseHr = Integer.parseInt(hour);
+		pauseMin = Integer.parseInt(minute);
+		pauseSec = Integer.parseInt(second);
+		
+		start = 1;
+		
+		return task;
+	}
+	
+	public void resetTimer(Timer t, TimerTask task) {
+    	task.cancel();
+    	task = null;
+    	
+    	if (t!=null) {
+	    	t.cancel();
+	    	t.purge();
+	    	t = null;
+    	}
+    	//if (t==null) t = new Timer();
+    	start = 2;
+    	//return task;
+	}
+	
+	public void first(JTextField enterHour, JTextField enterMin, JTextField enterSec, JLabel timerLabel, 
+						JButton enterBtn, JButton timerStartBtn, JButton timerPauseBtn, JButton timerResetBtn) {
+		
+		//Timer t = null;
+		//TimerTask task = null;
+		
+	    timerStartBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	    		int hr = Integer.parseInt(enterHour.getText());
+	    		int min = Integer.parseInt(enterMin.getText());
+	    		int sec = Integer.parseInt(enterSec.getText());
+	    		
+	    		//new start
+	        	if (start==0 && timerLabel.getText()=="00:00:00") {
+	        		//start = 0;
+	        		t = new Timer();
+	        		task = startTimer(t, task, hr, min, sec, timerLabel);
+	        	}
+	        	
+	        	//after pause
+	        	if (start==1) {
+	        		//start = 1;
+	        		task = startTimer(t, task, pauseHr, pauseMin, pauseSec, timerLabel);
+	        	}
+	        	
+	        	/*
+	        	else {
+	        		if (t==null) t = new Timer();
+	        		task = startTimer(t, task, hr, min, sec, timerLabel);
+	        	}
+	        	*/
+	        	
+	    		//after restart
+	        	else if (start==2 && timerLabel.getText()=="00:00:00") {
+	        		t = new Timer();
+	        		task = startTimer(t, task, hr, min, sec, timerLabel);
+	    		}
+	        	
+        		timerStartBtn.setEnabled(false);
+        		timerPauseBtn.setEnabled(true);
+        		timerResetBtn.setEnabled(true);
+	        };
+	    });
+	    
+
+	    timerPauseBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent select) {
+	        	
+	        	task = pauseTimer(t, task, timerLabel);
+        		timerStartBtn.setEnabled(true);
+        		timerPauseBtn.setEnabled(false);
+        		timerResetBtn.setEnabled(true);
+	        };
+	    });
+		    	    
+	    
+	    timerResetBtn.addActionListener(new ActionListener(){
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	        	
+	        	resetTimer(t, task);
+	        	enterHour.setText("HH");
+	        	enterMin.setText("MM");
+	        	enterSec.setText("SS");
+	        	timerLabel.setText("00:00:00");
+	        	enterBtn.setEnabled(true);
+        		timerStartBtn.setEnabled(false);
+        		timerPauseBtn.setEnabled(false);
+        		timerResetBtn.setEnabled(false);
+        		pauseHr = 0;
+        		pauseMin = 0;
+        		pauseSec = 0;
+        		//secOnlyNew = 0;
+	        };
+	    });
+	    
+	    
+	}
+	
+	
+/*	
 	public void runTimer(JLabel timerLbl, String hour, String minute, String second, int option) {
 		int hr = Integer.parseInt(hour);
 		int min = Integer.parseInt(minute);
@@ -188,14 +341,7 @@ public class TimerFeature extends Programs {
     	}
 	}
 	
-	public void pauseTimer() {
-
-	}
-	
-	public void resetTimer() {
-		//t.cancel();
-		//task.cancel();
-	}
+*/
 	
 	@Override
 	public void runProgram() {
