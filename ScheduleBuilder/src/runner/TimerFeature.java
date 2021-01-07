@@ -51,12 +51,10 @@ public class TimerFeature extends Programs {
 	    boolean isNumS = sec.chars().allMatch( Character::isDigit );
 	    
 		if (enterHour==null || enterMin==null || enterSec==null ) {
-	        System.out.print("Please enter a valid time\n");
 	        return false;
 	    }
 	    	    
 	    if (!(isNumH && isNumM && isNumS)) {
-	        System.out.print("Please enter a valid time\n");
 	        return false;
 	    }
 	    
@@ -65,7 +63,6 @@ public class TimerFeature extends Programs {
 	    int ss = Integer.parseInt(sec);
 	    
 	    if ( (hh>12) || (mm>59) || (ss>59)) {
-    		System.out.print("Please enter a valid time\n");
     		return false;
 	    }
 	    
