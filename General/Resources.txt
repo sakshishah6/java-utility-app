@@ -16,3 +16,15 @@ https://www.guru99.com/java-swing-gui.html
 
 JTables:
 https://docs.oracle.com/javase/tutorial/uiswing/components/table.html#simple
+
+JTables + JCheckBoxes:
+
+https://camposha.info/java-jtable-render-checkbox-column/
+
+Terminating Focus:
+
+https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6242668
+
+Using Preferences:
+
+https://www.vogella.com/tutorials/JavaPreferences/article.html
