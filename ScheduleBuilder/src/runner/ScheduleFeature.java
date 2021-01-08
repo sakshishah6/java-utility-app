@@ -23,7 +23,7 @@ public class ScheduleFeature {
     final JTable table = new JTable();
 
     // THE MODEL OF OUR TABLE
-    DefaultTableModel model = new DefaultTableModel() {
+    model = new DefaultTableModel() {
       private static final long serialVersionUID = 1L;
 
       public Class<?> getColumnClass(int column) {
