@@ -76,7 +76,7 @@ public class ScheduleBuilderGUI {
    * Saves user changes to the preferences object
    *
    */
-  
+
   public void setPreference() throws IOException {
     String checkYes = "true";
     String checkNo = "false";
