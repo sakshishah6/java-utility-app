@@ -45,44 +45,38 @@ public class ScheduleBuilderGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(1, 1));
 		frame.setResizable(false);
-        
-		/*
-		ImageIcon frameImgIcon = new ImageIcon("src/media/logo.png","newImg");
-		Image frameImg = frameImgIcon.getImage();
-		Image newFrameImg = frameImg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        frame.setIconImage(newFrameImg);
-        */
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
-		// Panel 0: Home Page
+		// Panel 0: Set up Home Page
 		JPanel p0 = new JPanel();
         ImageIcon tab0Icon, resizedTab0Icon;
         tab0Icon = new ImageIcon("src/media/home icon.png","iconImg0");
         resizedTab0Icon = resizeIcons(tab0Icon);
 		homepage(p0);
 		
-		// Panel 1: Calendar      
+		// Panel 1: Set up Calendar      
 		JPanel p1 = new JPanel();
         ImageIcon tab1Icon, resizedTab1Icon;
         tab1Icon = new ImageIcon("src/media/calendar icon.png","iconImg1");
         resizedTab1Icon = resizeIcons(tab1Icon);
 		calendar(p1);
 		
-		// Panel 2: Schedule
+		// Panel 2: Set up Schedule
 		JPanel p2 = new JPanel();
         ImageIcon tab2Icon, resizedTab2Icon;
         tab2Icon = new ImageIcon("src/media/schedule icon.png","iconImg2");
         resizedTab2Icon = resizeIcons(tab2Icon);
 		schedule(p2);
-		// Panel 3: Timer
+		
+		// Panel 3: Set up Timer
 		JPanel p3 = new JPanel();
         ImageIcon tab3Icon, resizedTab3Icon;
         tab3Icon = new ImageIcon("src/media/timer icon.png","iconImg3");
         resizedTab3Icon = resizeIcons(tab3Icon);
 		timer(p3);
 		
-		// Panel 4: Stopwatch
+		// Panel 4: Set up Stopwatch
 		JPanel p4 = new JPanel();
         ImageIcon tab4Icon, resizedTab4Icon;
         tab4Icon = new ImageIcon("src/media/stopwatch icon.png","iconImg4");
@@ -400,7 +394,6 @@ public class ScheduleBuilderGUI {
     	minuteLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
     	minuteLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		//additional timerPanel within the generalTimerPanel
 		JPanel timerPanel = new JPanel();
 		timerPanel.setBounds(190, 249, 200, 75);
 		timerInfoPanel.add(timerPanel);
@@ -450,6 +443,9 @@ public class ScheduleBuilderGUI {
 		timerResetBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		timerResetBtn.setMaximumSize(new Dimension(100,50));
 		timerResetBtn.setEnabled(false);
+		
+		//When focus is in enterHour, enterMin or enterSec textfield,
+		//allow user to press enter key in lieu of clicking the enter button
 	 	enterHour.addKeyListener(new KeyAdapter() {
 	 		@Override
 	 		public void keyPressed(KeyEvent e) {
@@ -477,6 +473,7 @@ public class ScheduleBuilderGUI {
     		}
     	});
     	
+    	//Events for enterBtn
     	enterBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
@@ -508,7 +505,6 @@ public class ScheduleBuilderGUI {
 		p4.setBackground(Color.WHITE);
 		p4.setOpaque(true);
 		
-		//panel for showing stopwatch
 		JPanel watchPanel = new JPanel();
 		watchPanel.setBorder(new EmptyBorder(90, 200, 90, 200));
 		watchPanel.setBackground(new Color(255, 228, 225));
