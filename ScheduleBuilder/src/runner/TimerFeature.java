@@ -17,9 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class TimerFeature extends Programs {
+public class TimerFeature {
 
-	private long delay = 1000;
+	private int delay = 1000;
 	private long period = 1000;
 	private int start = 0;
 	private int secOnlyNew = 0;
@@ -27,7 +27,7 @@ public class TimerFeature extends Programs {
 	private int pauseMin = 0;
 	private int pauseSec = 0;
 	private TimerTask task = null;
-	private static Timer t = null;
+	private Timer t = new Timer();
 	
 	public void setTextFieldFocus(JTextField enterField, String t) {
 
@@ -120,10 +120,11 @@ public class TimerFeature extends Programs {
 		return formattedHour+":"+formattedMinute+":"+formattedSecond;
 	}
 	
-	private int countDown(int seconds, Timer t) {
+	private int countDown(int seconds, JButton timerResetBtn) {
 		if (seconds==1) {
-			t.cancel();
+			task.cancel();
 			playMusic("src/media/timer sound.mp3");
+			timerResetBtn.doClick();
 		}
 	    return seconds-1;
 	}
@@ -144,16 +145,17 @@ public class TimerFeature extends Programs {
 	       }
 	}
 	
-	public TimerTask startTimer(TimerTask task, int h, int m, int s, JLabel timerLabel) {
+	public TimerTask startTimer(int h, int m, int s, JLabel timerLabel, JButton timerResetBtn) {
 	    int secOnly = convertToSeconds(h, m, s);
-    	task = new TimerTask() {
+
+	    task = new TimerTask() {
 	        public void run() {
 	        	if (start==0) {
-	        		secOnlyNew = countDown(secOnly, t);
+	        		secOnlyNew = countDown(secOnly, timerResetBtn);
 	        		start = 1;
 	        	}
-	        	else {
-		        	secOnlyNew = countDown(secOnlyNew, t);
+	        	else if (start==1) {
+		        	secOnlyNew = countDown(secOnlyNew, timerResetBtn);
 		        	System.out.println(secOnlyNew);
 	        	}
 	        	int[] result = convertFromSeconds(secOnlyNew);
@@ -163,49 +165,16 @@ public class TimerFeature extends Programs {
     	};
     	
     	t.scheduleAtFixedRate(task, delay, period);
-    	
+
 	    int[] result = convertFromSeconds(secOnly);
 	    String finalTime = formatTime(result[0], result[1], result[2]);
 	    timerLabel.setText(finalTime);
 	    
-	    //start = 0;
-	    
 	    return task;
 	}
 	
-	public TimerTask pauseTimer(TimerTask task, JLabel timerLabel) {
-		task.cancel();
-		
-		String hour = "" + (timerLabel.getText()).charAt(0) + (timerLabel.getText()).charAt(1);
-		String minute = "" + (timerLabel.getText()).charAt(3) + (timerLabel.getText()).charAt(4);
-		String second = "" + (timerLabel.getText()).charAt(6) + (timerLabel.getText()).charAt(7);
-		
-		pauseHr = Integer.parseInt(hour);
-		pauseMin = Integer.parseInt(minute);
-		pauseSec = Integer.parseInt(second);
-		
-		start = 1;
-		
-		return task;
-	}
-	
-	public Timer resetTimer(TimerTask task) {
-		task.cancel();
-    	t.cancel();
-    	t.purge();
-    	t=null;
-    	task=null;
-
-    	start = 2;
-    	
-    	return t;
-	}
-	
-	public void first(JTextField enterHour, JTextField enterMin, JTextField enterSec, JLabel timerLabel, 
+	public void runTimer(JTextField enterHour, JTextField enterMin, JTextField enterSec, JLabel timerLabel, 
 						JButton enterBtn, JButton timerStartBtn, JButton timerPauseBtn, JButton timerResetBtn) {
-		
-		//Timer t = null;
-		//TimerTask task = null;
 		
 	    timerStartBtn.addActionListener(new ActionListener(){
 	        @Override
@@ -213,36 +182,26 @@ public class TimerFeature extends Programs {
 	    		
 	    		//new start
 	        	if (start==0 && timerLabel.getText()=="00:00:00") {
-	        		//start = 0;
-	        		t = new Timer();
 		    		int hr = Integer.parseInt(enterHour.getText());
 		    		int min = Integer.parseInt(enterMin.getText());
 		    		int sec = Integer.parseInt(enterSec.getText());
-	        		task = startTimer(task, hr, min, sec, timerLabel);
+	        		task = startTimer(hr, min, sec, timerLabel, timerResetBtn);
 	        	}
 	        	
 	        	//after pause
-	        	if (start==1) {
-	        		//start = 1;
-	        		task = startTimer(task, pauseHr, pauseMin, pauseSec, timerLabel);
+	        	else if (start==1) {
+	        		task.cancel();
+	        		task = startTimer(pauseHr, pauseMin, pauseSec, timerLabel, timerResetBtn);
 	        	}
-	        	
-	        	/*
-	        	else {
-	        		if (t==null) t = new Timer();
-	        		task = startTimer(t, task, hr, min, sec, timerLabel);
-	        	}
-	        	*/
 	        	
 	    		//after restart
 	        	else if (start==2 && timerLabel.getText()=="00:00:00") {
-	        		t = new Timer();
 		    		int hr = Integer.parseInt(enterHour.getText());
 		    		int min = Integer.parseInt(enterMin.getText());
 		    		int sec = Integer.parseInt(enterSec.getText());
-	        		task = startTimer(task, hr, min, sec, timerLabel);
+	        		task = startTimer(hr, min, sec, timerLabel, timerResetBtn);
 	    		}
-	        	
+	    		
         		timerStartBtn.setEnabled(false);
         		timerPauseBtn.setEnabled(true);
         		timerResetBtn.setEnabled(true);
@@ -253,11 +212,25 @@ public class TimerFeature extends Programs {
 	    timerPauseBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent select) {
+
+	        	task.cancel();
 	        	
-	        	task = pauseTimer(task, timerLabel);
+	    		String hour = "" + (timerLabel.getText()).charAt(0) + (timerLabel.getText()).charAt(1);
+	    		String minute = "" + (timerLabel.getText()).charAt(3) + (timerLabel.getText()).charAt(4);
+	    		String second = "" + (timerLabel.getText()).charAt(6) + (timerLabel.getText()).charAt(7);
+	    		
+	    		pauseHr = Integer.parseInt(hour);
+	    		System.out.println("pause: "+pauseHr);
+	    		pauseMin = Integer.parseInt(minute);
+	    		System.out.println("pause: "+pauseMin);
+	    		pauseSec = Integer.parseInt(second);
+	    		System.out.println("pause: "+pauseSec);
+	        	
         		timerStartBtn.setEnabled(true);
         		timerPauseBtn.setEnabled(false);
         		timerResetBtn.setEnabled(true);
+        		
+        		start = 1;
 	        };
 	    });
 		    	    
@@ -265,86 +238,23 @@ public class TimerFeature extends Programs {
 	    timerResetBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+
+	        	task.cancel();
 	        	
-	        	resetTimer(task);
 	        	enterHour.setText("HH");
 	        	enterMin.setText("MM");
 	        	enterSec.setText("SS");
 	        	timerLabel.setText("00:00:00");
+	        	pauseHr = 0;
+        		pauseMin = 0;
+        		pauseSec = 0;
 	        	enterBtn.setEnabled(true);
         		timerStartBtn.setEnabled(false);
         		timerPauseBtn.setEnabled(false);
         		timerResetBtn.setEnabled(false);
-        		pauseHr = 0;
-        		pauseMin = 0;
-        		pauseSec = 0;
-        		//secOnlyNew = 0;
+        		start = 0;
 	        };
-	    });
-	    
-	    
-	}
-	
-	
-/*	
-	public void runTimer(JLabel timerLbl, String hour, String minute, String second, int option) {
-		int hr = Integer.parseInt(hour);
-		int min = Integer.parseInt(minute);
-		int sec = Integer.parseInt(second);
-		
-		int secOnly = convertToSeconds(hr, min, sec);
-		
-	    int delay = 1000;
-	    int period = 1000;
-	    
-	    start = 1;
-    	
-	    int[] result = convertFromSeconds(secOnly);
-    	
-	    String finalTime = formatTime(result[0], result[1], result[2]);
-    	
-	    timerLbl.setText(finalTime);
-    	
-    	Timer t = new Timer();
-    	TimerTask task;
-    	
-    	task = new TimerTask() {
-	        public void run() {
-	        	if (start==1) {
-	        		secOnlyNew = setInterval(secOnly, t);
-	        		start = 0;
-	        	}
-	        	else {
-		        	secOnlyNew = setInterval(secOnlyNew, t);
-		        	System.out.println(secOnlyNew);
-	        	}
-	        	int[] result = convertFromSeconds(secOnlyNew);
-	        	String finalTime = formatTime(result[0], result[1], result[2]);
-	        	timerLbl.setText(finalTime);
-	        }
-    	};
-	    	
-    	//option 1 - start
-    	if (option==1) {
-		    t.scheduleAtFixedRate(task, delay, period);
-    	}
-    	
-    	//option 2 - pause
-    	else if (option==2) {
-    		
-    	}
-    	
-    	//option 3 - reset
-    	else if (option==3) {
-    		task.cancel();
-    	}
-	}
-	
-*/
-	
-	@Override
-	public void runProgram() {
-		  
+	    }); 
 	}
 	
 }
