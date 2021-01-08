@@ -7,7 +7,7 @@ import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class StopwatchFeature extends Programs {
+public class StopwatchFeature {
 
 	private static Timer s;
 	private TimerTask task;
@@ -153,10 +153,5 @@ public class StopwatchFeature extends Programs {
 	        	stopwatchResetBtn.setEnabled(false);
 	        };
 	    });
-	}
-
-	@Override
-	public void runProgram() {
-		// TODO Auto-generated method stub
 	}
 }
