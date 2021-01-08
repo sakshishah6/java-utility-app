@@ -2,6 +2,7 @@ package driver;
 
 import runner.CalendarFeature;
 import runner.ScheduleFeature;
+import runner.StopwatchFeature;
 import runner.TimerFeature;
 
 import java.awt.BorderLayout;
@@ -130,7 +131,6 @@ public class ScheduleBuilderGUI {
         p0.setLayout(new BorderLayout(0, 0));
 	
         JLabel logo = new JLabel(new ImageIcon("src/media/logo.png"));
-        logo.setBackground(new Color(255, 239, 213));
 		logo.setHorizontalAlignment(JLabel.CENTER);
 		logo.setVerticalAlignment(JLabel.CENTER);
 		
@@ -463,8 +463,6 @@ public class ScheduleBuilderGUI {
     		}
     	});
     	
-
-    	
     	enterBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
@@ -484,73 +482,15 @@ public class ScheduleBuilderGUI {
 	        	}
 	        }
 	    });
-    	
-    	
-    	/*
-	    //When reset button is clicked
-	    timerResetBtn.addActionListener(new ActionListener(){
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	//timerResetBtn.setEnabled(false);
-	        	timerF.first(enterHour.getText(), enterMin.getText(), enterSec.getText());
-	        	enterHour.setText("HH");
-	        	enterMin.setText("MM");
-	        	enterSec.setText("SS");
-	        	timer.setText("00:00:00");
-        		timerStartBtn.setEnabled(true);
-        		timerPauseBtn.setEnabled(false);
-        		timerResetBtn.setEnabled(false);
-	        };
-	    });
-	    
-	    //When start button is clicked
-	    timerStartBtn.addActionListener(new ActionListener(){
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	if (timerF.validateFields(enterHour, enterMin, enterSec)==false) {
-	        		JOptionPane.showMessageDialog(p3, "Please enter a valid time.\nHOUR < 13\nMINUTE < 60\nSECOND < 60");
-	        	}
-	        	else {
-	        		timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 1);
-            		timerStartBtn.setEnabled(false);
-            		timerPauseBtn.setEnabled(true);
-            		timerResetBtn.setEnabled(true);
-	        	}
-	        };
-	    });
-	    
-	    //When stop button is clicked
-	    timerPauseBtn.addActionListener(new ActionListener(){
-	        @Override
-	        public void actionPerformed(ActionEvent select) {
-	        	timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 2);
-        		timerStartBtn.setEnabled(true);
-        		timerPauseBtn.setEnabled(false);
-        		timerResetBtn.setEnabled(true);
-	        };
-	    });
-		
-	    //When reset button is clicked
-	    timerResetBtn.addActionListener(new ActionListener(){
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	//timerResetBtn.setEnabled(false);
-	        	timerF.runTimer(timer, enterHour.getText(), enterMin.getText(), enterSec.getText(), 3);
-	        	enterHour.setText("HH");
-	        	enterMin.setText("MM");
-	        	enterSec.setText("SS");
-	        	timer.setText("00:00:00");
-        		timerStartBtn.setEnabled(true);
-        		timerPauseBtn.setEnabled(false);
-        		timerResetBtn.setEnabled(false);
-	        };
-	    });
-	    */
 	}
 
 	
 	// Stopwatch
 	public static void stopwatch(JPanel p4) {
+		
+		StopwatchFeature stopwatchF = new StopwatchFeature();
+		stopwatchF.runProgram();
+		
 		p4.setLayout(new GridLayout(1, 1));
 		p4.setBackground(Color.WHITE);
 		p4.setOpaque(true);
@@ -601,6 +541,7 @@ public class ScheduleBuilderGUI {
     	stopwatchResetBtn.setVerticalAlignment(JButton.CENTER);
     	stopwatchResetBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
     	stopwatchResetBtn.setMaximumSize(new Dimension(100,50));
+    	stopwatchResetBtn.setEnabled(false);
     	
     	JButton stopwatchStopBtn = new JButton("STOP");
     	stopwatchStopBtn.setBounds(246, 244, 114, 61);
@@ -613,31 +554,9 @@ public class ScheduleBuilderGUI {
     	stopwatchStopBtn.setVerticalAlignment(JButton.CENTER);
     	stopwatchStopBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
     	stopwatchStopBtn.setMaximumSize(new Dimension(100,50));
+    	stopwatchStopBtn.setEnabled(false);
     	
-    		    //When stop button is clicked
-    	    	stopwatchStopBtn.addActionListener(new ActionListener(){
-    		        @Override
-    		        public void actionPerformed(ActionEvent select) {
-    		        	
-    		        };
-    		    });
-    	
-	    //When reset button is clicked
-    	stopwatchResetBtn.addActionListener(new ActionListener(){
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	stopwatch.setText("00:00:00");
-	        };
-	    });
-    	
-	    //When start button is clicked
-    	stopwatchStartBtn.addActionListener(new ActionListener(){
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-
-	        };
-	    });
-		
+    	stopwatchF.runStopwatch(stopwatch, stopwatchStartBtn, stopwatchStopBtn, stopwatchResetBtn);
 	}	
 
 	
