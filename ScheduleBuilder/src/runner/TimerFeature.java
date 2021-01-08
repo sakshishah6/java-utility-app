@@ -156,7 +156,6 @@ public class TimerFeature {
 	        	}
 	        	else if (start==1) {
 		        	secOnlyNew = countDown(secOnlyNew, timerResetBtn);
-		        	System.out.println(secOnlyNew);
 	        	}
 	        	int[] result = convertFromSeconds(secOnlyNew);
 	        	String finalTime = formatTime(result[0], result[1], result[2]);
@@ -220,11 +219,8 @@ public class TimerFeature {
 	    		String second = "" + (timerLabel.getText()).charAt(6) + (timerLabel.getText()).charAt(7);
 	    		
 	    		pauseHr = Integer.parseInt(hour);
-	    		System.out.println("pause: "+pauseHr);
 	    		pauseMin = Integer.parseInt(minute);
-	    		System.out.println("pause: "+pauseMin);
 	    		pauseSec = Integer.parseInt(second);
-	    		System.out.println("pause: "+pauseSec);
 	        	
         		timerStartBtn.setEnabled(true);
         		timerPauseBtn.setEnabled(false);
