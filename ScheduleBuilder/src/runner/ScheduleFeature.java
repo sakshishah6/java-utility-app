@@ -12,7 +12,7 @@ public class ScheduleFeature {
    * holds DefaultTableModel object
    */
   private DefaultTableModel model;
-  
+
   /**
    * Formats the table for Schedule
    *
