@@ -6,8 +6,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-public class CalendarFeature extends Programs {
-
+public class CalendarFeature {
+  DefaultTableModel model;
+  
 	public void getDate(JLabel dateLabel) {
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH);
@@ -77,7 +78,7 @@ public class CalendarFeature extends Programs {
       final JTable table=new JTable();
 
       //THE MODEL OF OUR TABLE
-      DefaultTableModel model=new DefaultTableModel()
+      model=new DefaultTableModel()
       {
 		private static final long serialVersionUID = 1L;
 
@@ -123,12 +124,9 @@ public class CalendarFeature extends Programs {
 
      table.getColumnModel().getColumn(1).setPreferredWidth(500);
      table.setSelectionMode(0);
+     table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
      return table;
     }
 	
-	@Override
-	public void runProgram() {
-
-	}
 
 }
