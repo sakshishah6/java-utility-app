@@ -33,9 +33,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class ScheduleBuilderGUI {
-	private static JPanel p0;
 
-	
 	public static void GUI() {
 		
 		// Create and set up the window.
@@ -56,7 +54,7 @@ public class ScheduleBuilderGUI {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
 		// Panel 0: Home Page
-		p0 = new JPanel();
+		JPanel p0 = new JPanel();
         ImageIcon tab0Icon, resizedTab0Icon;
         tab0Icon = new ImageIcon("src/media/home icon.png","iconImg0");
         resizedTab0Icon = resizeIcons(tab0Icon);
