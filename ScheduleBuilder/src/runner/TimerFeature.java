@@ -27,7 +27,7 @@ public class TimerFeature extends Programs {
 	int pauseMin = 0;
 	int pauseSec = 0;
 	TimerTask task = null;
-	static Timer t = null;
+	private static Timer t;
 	
 	public void setTextFieldFocus(JTextField enterField, String t) {
 
@@ -144,8 +144,7 @@ public class TimerFeature extends Programs {
 	       }
 	}
 	
-
-	public TimerTask startTimer(Timer t, TimerTask task, int h, int m, int s, JLabel timerLabel) {
+	public TimerTask startTimer(TimerTask task, int h, int m, int s, JLabel timerLabel) {
 	    int secOnly = convertToSeconds(h, m, s);
     	task = new TimerTask() {
 	        public void run() {
@@ -174,8 +173,7 @@ public class TimerFeature extends Programs {
 	    return task;
 	}
 	
-	
-	public TimerTask pauseTimer(Timer t, TimerTask task, JLabel timerLabel) {
+	public TimerTask pauseTimer(TimerTask task, JLabel timerLabel) {
 		task.cancel();
 		
 		String hour = "" + (timerLabel.getText()).charAt(0) + (timerLabel.getText()).charAt(1);
@@ -191,18 +189,16 @@ public class TimerFeature extends Programs {
 		return task;
 	}
 	
-	public void resetTimer(Timer t, TimerTask task) {
-    	task.cancel();
-    	task = null;
-    	
-    	if (t!=null) {
-	    	t.cancel();
-	    	t.purge();
-	    	t = null;
-    	}
-    	//if (t==null) t = new Timer();
+	public Timer resetTimer(TimerTask task) {
+		task.cancel();
+    	t.cancel();
+    	t.purge();
+    	t=null;
+    	task=null;
+
     	start = 2;
-    	//return task;
+    	
+    	return t;
 	}
 	
 	public void first(JTextField enterHour, JTextField enterMin, JTextField enterSec, JLabel timerLabel, 
@@ -214,21 +210,21 @@ public class TimerFeature extends Programs {
 	    timerStartBtn.addActionListener(new ActionListener(){
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	    		int hr = Integer.parseInt(enterHour.getText());
-	    		int min = Integer.parseInt(enterMin.getText());
-	    		int sec = Integer.parseInt(enterSec.getText());
 	    		
 	    		//new start
 	        	if (start==0 && timerLabel.getText()=="00:00:00") {
 	        		//start = 0;
 	        		t = new Timer();
-	        		task = startTimer(t, task, hr, min, sec, timerLabel);
+		    		int hr = Integer.parseInt(enterHour.getText());
+		    		int min = Integer.parseInt(enterMin.getText());
+		    		int sec = Integer.parseInt(enterSec.getText());
+	        		task = startTimer(task, hr, min, sec, timerLabel);
 	        	}
 	        	
 	        	//after pause
 	        	if (start==1) {
 	        		//start = 1;
-	        		task = startTimer(t, task, pauseHr, pauseMin, pauseSec, timerLabel);
+	        		task = startTimer(task, pauseHr, pauseMin, pauseSec, timerLabel);
 	        	}
 	        	
 	        	/*
@@ -241,7 +237,10 @@ public class TimerFeature extends Programs {
 	    		//after restart
 	        	else if (start==2 && timerLabel.getText()=="00:00:00") {
 	        		t = new Timer();
-	        		task = startTimer(t, task, hr, min, sec, timerLabel);
+		    		int hr = Integer.parseInt(enterHour.getText());
+		    		int min = Integer.parseInt(enterMin.getText());
+		    		int sec = Integer.parseInt(enterSec.getText());
+	        		task = startTimer(task, hr, min, sec, timerLabel);
 	    		}
 	        	
         		timerStartBtn.setEnabled(false);
@@ -255,7 +254,7 @@ public class TimerFeature extends Programs {
 	        @Override
 	        public void actionPerformed(ActionEvent select) {
 	        	
-	        	task = pauseTimer(t, task, timerLabel);
+	        	task = pauseTimer(task, timerLabel);
         		timerStartBtn.setEnabled(true);
         		timerPauseBtn.setEnabled(false);
         		timerResetBtn.setEnabled(true);
@@ -267,7 +266,7 @@ public class TimerFeature extends Programs {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	        	
-	        	resetTimer(t, task);
+	        	resetTimer(task);
 	        	enterHour.setText("HH");
 	        	enterMin.setText("MM");
 	        	enterSec.setText("SS");
