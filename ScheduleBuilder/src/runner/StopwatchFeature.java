@@ -16,6 +16,11 @@ public class StopwatchFeature {
 	private int event = 0;
 	private int totalSec = 0;
 	
+	/* Name: convertToSeconds
+	 * Purpose: Converts time shown on label to time in seconds only
+	 * Input: JLabel stopwatchLabel
+	 * Output: int seconds
+	 */
 	private int convertToSeconds(JLabel stopwatchLabel) {
 		
 		String hr = "" + (stopwatchLabel.getText()).charAt(0) + (stopwatchLabel.getText()).charAt(1);
@@ -29,6 +34,11 @@ public class StopwatchFeature {
 		return h*60*60 + m*60 + s;
 	}
 	
+	/* Name: convertFromSeconds
+	 * Purpose: Converts time in seconds to a string format used on the label
+	 * Input: int seconds
+	 * Output: String formattedTime
+	 */
 	private String convertFromSeconds(int sec) {
         int p1 = sec % 60;
         int p2 = sec / 60;
@@ -45,6 +55,11 @@ public class StopwatchFeature {
 		return formatedTime;
 	}
 	
+	/* Name: formatTime
+	 * Purpose: formats the time in order to show it on the label
+	 * Input: integer array containing hour, minute and second at each index
+	 * Output: String formatted time
+	 */
 	private String formatTime(int[] arr) {
 		int hour = arr[0];
 		int minute = arr[1];
