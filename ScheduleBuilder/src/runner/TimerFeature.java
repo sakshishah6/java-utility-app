@@ -19,15 +19,15 @@ import javax.swing.JTextField;
 
 public class TimerFeature extends Programs {
 
-	long delay = 1000;
-	long period = 1000;
-	int start = 0;
-	int secOnlyNew = 0;
-	int pauseHr = 0;
-	int pauseMin = 0;
-	int pauseSec = 0;
-	TimerTask task = null;
-	private static Timer t;
+	private long delay = 1000;
+	private long period = 1000;
+	private int start = 0;
+	private int secOnlyNew = 0;
+	private int pauseHr = 0;
+	private int pauseMin = 0;
+	private int pauseSec = 0;
+	private TimerTask task = null;
+	private static Timer t = null;
 	
 	public void setTextFieldFocus(JTextField enterField, String t) {
 
@@ -83,11 +83,11 @@ public class TimerFeature extends Programs {
 	    return true;
 	};
 	
-	public int convertToSeconds(int hr, int min, int sec) {
+	private int convertToSeconds(int hr, int min, int sec) {
 		return hr*60*60 + min*60 + sec;
 	}
 	
-	public int[] convertFromSeconds(int sec) {
+	private int[] convertFromSeconds(int sec) {
         int p1 = sec % 60;
         int p2 = sec / 60;
         int p3 = p2 % 60;
@@ -103,7 +103,7 @@ public class TimerFeature extends Programs {
 		return result;
 	}
 	
-	public String formatTime(int hour, int minute, int second) {
+	private String formatTime(int hour, int minute, int second) {
 		String formattedHour = null;
 		String formattedMinute = null;
 		String formattedSecond = null;
@@ -120,7 +120,7 @@ public class TimerFeature extends Programs {
 		return formattedHour+":"+formattedMinute+":"+formattedSecond;
 	}
 	
-	public int countDown(int seconds, Timer t) {
+	private int countDown(int seconds, Timer t) {
 		if (seconds==1) {
 			t.cancel();
 			playMusic("src/media/timer sound.mp3");
@@ -128,7 +128,7 @@ public class TimerFeature extends Programs {
 	    return seconds-1;
 	}
 	
-	public void playMusic(String filepath) {
+	private void playMusic(String filepath) {
 	      try {
 	    	  File f = new File("./" + filepath);
 	    	  AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
