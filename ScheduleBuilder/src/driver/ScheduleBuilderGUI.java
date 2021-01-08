@@ -305,7 +305,6 @@ public class ScheduleBuilderGUI {
 	public static void timer(JPanel p3) {
 		
 		TimerFeature timerF = new TimerFeature();
-		timerF.runProgram();
 		
 		//set up p3
 		p3.setLayout(new GridLayout(1, 1));
@@ -474,7 +473,7 @@ public class ScheduleBuilderGUI {
             		timerResetBtn.setEnabled(false);
 	        	}
 	        	else {
-	        		timerF.first(enterHour, enterMin, enterSec, timer, enterBtn, timerStartBtn, timerPauseBtn, timerResetBtn);
+	        		timerF.runTimer(enterHour, enterMin, enterSec, timer, enterBtn, timerStartBtn, timerPauseBtn, timerResetBtn);
 	        		enterBtn.setEnabled(false);
             		timerStartBtn.setEnabled(true);
             		timerPauseBtn.setEnabled(false);
@@ -489,7 +488,6 @@ public class ScheduleBuilderGUI {
 	public static void stopwatch(JPanel p4) {
 		
 		StopwatchFeature stopwatchF = new StopwatchFeature();
-		stopwatchF.runProgram();
 		
 		p4.setLayout(new GridLayout(1, 1));
 		p4.setBackground(Color.WHITE);
