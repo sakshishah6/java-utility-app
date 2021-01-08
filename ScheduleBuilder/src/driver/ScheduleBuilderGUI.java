@@ -32,6 +32,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Insets;
 
 public class ScheduleBuilderGUI {
 
@@ -74,7 +75,6 @@ public class ScheduleBuilderGUI {
         tab2Icon = new ImageIcon("src/media/schedule icon.png","iconImg2");
         resizedTab2Icon = resizeIcons(tab2Icon);
 		schedule(p2);
-
 		// Panel 3: Timer
 		JPanel p3 = new JPanel();
         ImageIcon tab3Icon, resizedTab3Icon;
@@ -92,7 +92,6 @@ public class ScheduleBuilderGUI {
 		// Add all panels to the tabbedPane & to frame
 		tabbedPane.addTab("Home Page", p0);
 		tabbedPane.addTab("Home Page", resizedTab0Icon, p0);
-		tabbedPane.setBackgroundAt(0, new Color(255, 255, 255));
 		
 		tabbedPane.addTab("Calendar", p1);
 		tabbedPane.addTab("Calendar", resizedTab1Icon, p1);
@@ -130,11 +129,28 @@ public class ScheduleBuilderGUI {
 		p0.setOpaque(true);
         p0.setLayout(new BorderLayout(0, 0));
 	
+        JPanel btnPanel = new JPanel();
+		BoxLayout layout = new BoxLayout(btnPanel, BoxLayout.Y_AXIS);
+		btnPanel.setLayout(layout);
+		btnPanel.setBorder(new EmptyBorder(50,10,50,10));
+		btnPanel.setBackground(new Color(255, 228, 225));
+		btnPanel.setMaximumSize(new Dimension(175, 90));
+		p0.add(btnPanel, BorderLayout.CENTER);
+        
+		JButton saveBtn = new JButton("Save Session");
+		saveBtn.setMargin(new Insets(2, 2, 2, 2));
+		saveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		saveBtn.setMaximumSize(new Dimension(125, 50));
+		btnPanel.setBorder(new EmptyBorder(100,10,10,10));
+		saveBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+		saveBtn.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnPanel.add(saveBtn);
+        
         JLabel logo = new JLabel(new ImageIcon("src/media/logo.png"));
 		logo.setHorizontalAlignment(JLabel.CENTER);
 		logo.setVerticalAlignment(JLabel.CENTER);
-		
-		p0.add(logo);
+		logo.setBorder(new EmptyBorder(50,10,10,10));
+		p0.add(logo, BorderLayout.NORTH);
 		
 		JPanel infoPanel = new JPanel();
 		BoxLayout boxlayout = new BoxLayout(infoPanel, BoxLayout.Y_AXIS);
@@ -434,7 +450,6 @@ public class ScheduleBuilderGUI {
 		timerResetBtn.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		timerResetBtn.setMaximumSize(new Dimension(100,50));
 		timerResetBtn.setEnabled(false);
-    	
 	 	enterHour.addKeyListener(new KeyAdapter() {
 	 		@Override
 	 		public void keyPressed(KeyEvent e) {
