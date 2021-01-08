@@ -145,6 +145,7 @@ public class ScheduleBuilderGUI {
 		// Add all panels to the tabbedPane & to frame
 		tabbedPane.addTab("Home Page", p0);
 		tabbedPane.addTab("Home Page", resizedTab0Icon, p0);
+		tabbedPane.setBackgroundAt(0, new Color(255, 255, 255));
 		
 		tabbedPane.addTab("Calendar", p1);
 		tabbedPane.addTab("Calendar", resizedTab1Icon, p1);
