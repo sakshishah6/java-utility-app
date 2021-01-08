@@ -32,14 +32,73 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.prefs.Preferences;
 import java.awt.Insets;
 
 public class ScheduleBuilderGUI {
+  private JTable calendarTable;
+  private JTable scheduleTable;
+  static ScheduleBuilderGUI toRun = new ScheduleBuilderGUI();
+  private JTextArea notes;
+  private JFrame frame;
+  
+  private Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
 
-	public static void GUI() {
-		
+  public void setPreference() throws IOException {
+    String checkYes = "true";
+    String checkNo = "false";
+
+    for (int i = 0; i < calendarTable.getRowCount(); i++) {
+      if (calendarTable.getValueAt(i, 1) != null) {
+        prefs.put("CalendarID" + i, (String) calendarTable.getValueAt(i, 1));
+      }
+    }
+
+    for (int i = 0; i < scheduleTable.getRowCount(); i++) {
+      
+      if (scheduleTable.getValueAt(i, 1) != null) {
+        prefs.put("ScheduleTasksID" + i, (String) scheduleTable.getValueAt(i, 1));
+      }
+
+      if (scheduleTable.getValueAt(i, 2) != null) {
+        if ((Boolean) scheduleTable.getValueAt(i, 2) == true) {
+          prefs.put("ScheduleCompletedID" + i, checkYes);
+        } else {
+          prefs.put("ScheduleCompletedID" + i, checkNo);
+        }
+      }
+    }
+
+    if (notes.getText() != null) {
+      prefs.put("ScheduleNotesID", notes.getText());
+    }
+  }
+
+  public void getPreference() throws IOException {
+    
+    for (int i = 0; i < calendarTable.getRowCount(); i++) {
+      calendarTable.setValueAt(prefs.get("CalendarID" + i, new String()), i, 1);
+    }
+
+    for (int i = 0; i < scheduleTable.getRowCount(); i++) {
+      scheduleTable.setValueAt(prefs.get("ScheduleTasksID" + i, new String()), i, 1);
+    }
+
+    for (int i = 0; i < scheduleTable.getRowCount(); i++) {
+      if ((prefs.get("ScheduleCompletedID" + i, new String())).equals("true")) {
+        scheduleTable.getModel().setValueAt(true, i, 2);
+      } else {
+        scheduleTable.getModel().setValueAt(false, i, 2);
+      }
+    }
+
+    notes.setText(prefs.get("ScheduleNotesID", new String()));
+  }
+  
+	public void GUI() {		
 		// Create and set up the window.
-		final JFrame frame = new JFrame("Schedule Builder");
+		frame = new JFrame("Schedule Builder");
 
 		frame.setSize(620, 580);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -118,7 +177,7 @@ public class ScheduleBuilderGUI {
 	
 	
 	// Home Page
-	public static void homepage(JPanel p0) {
+	public static void homepage(JPanel p0) {   
 		p0.setBackground(new Color(255, 228, 225));
 		p0.setOpaque(true);
         p0.setLayout(new BorderLayout(0, 0));
@@ -132,6 +191,16 @@ public class ScheduleBuilderGUI {
 		p0.add(btnPanel, BorderLayout.CENTER);
         
 		JButton saveBtn = new JButton("Save Session");
+		saveBtn.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+		    try {
+            toRun.setPreference();
+        } catch (IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+		  }
+		});
 		saveBtn.setMargin(new Insets(2, 2, 2, 2));
 		saveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		saveBtn.setMaximumSize(new Dimension(125, 50));
@@ -173,15 +242,15 @@ public class ScheduleBuilderGUI {
 	
 	
     // Calendar
-    public static void calendar(JPanel p1) {
+    public void calendar(JPanel p1) {
       CalendarFeature calendarF = new CalendarFeature();
       
       p1.setLayout(new BorderLayout());
-      JTable newTable = calendarF.getTableModel();
+      calendarTable = calendarF.getTableModel();
       
       JPanel centerPanel = new JPanel(new GridLayout(1, 1));
       centerPanel.setBackground(new Color(255, 228, 225));
-      centerPanel.add(new JScrollPane(newTable));
+      centerPanel.add(new JScrollPane(calendarTable));
       
       centerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
       
@@ -222,12 +291,12 @@ public class ScheduleBuilderGUI {
         @Override
         public void actionPerformed(ActionEvent arg0) {
           //GET SELECTED ROW
-          newTable.removeEditor();
-          newTable.removeColumnSelectionInterval(0, newTable.getColumnCount() - 1);
-          newTable.removeRowSelectionInterval(0, newTable.getRowCount() - 1);
-          for(int i=0;i<newTable.getRowCount();i++)
+          calendarTable.removeEditor();
+          calendarTable.removeColumnSelectionInterval(0, calendarTable.getColumnCount() - 1);
+          calendarTable.removeRowSelectionInterval(0, calendarTable.getRowCount() - 1);
+          for(int i=0;i<calendarTable.getRowCount();i++)
           {
-            newTable.setValueAt(new String(),i, 1);
+            calendarTable.setValueAt(new String(),i, 1);
           }
         }
       });
@@ -239,7 +308,7 @@ public class ScheduleBuilderGUI {
     
     
     // Schedule
-    public static void schedule(JPanel p2) {
+    public void schedule(JPanel p2) {
       ScheduleFeature scheduleF = new ScheduleFeature();
         
       p2.setLayout(new BorderLayout());
@@ -247,8 +316,8 @@ public class ScheduleBuilderGUI {
       JPanel centerPanel = new JPanel(new GridLayout(1, 1));
       centerPanel.setBackground(new Color(255, 228, 225));
       
-      JTable newTable = scheduleF.getTableModel();
-      centerPanel.add(new JScrollPane(newTable));
+      scheduleTable = scheduleF.getTableModel();
+      centerPanel.add(new JScrollPane(scheduleTable));
       
       p2.add(centerPanel, BorderLayout.CENTER);
   
@@ -271,14 +340,13 @@ public class ScheduleBuilderGUI {
       notesLabel.setVerticalAlignment(SwingConstants.TOP);
       southPanel.add(notesLabel);
       
-      JTextArea notes = new JTextArea();
+      notes = new JTextArea();
       notesLabel.setLabelFor(notes);
       notes.setRows(8);
       notes.setMaximumSize(new Dimension(50, 50));
       
       southPanel.add(new JScrollPane(notes));
-     
-      
+    
       JButton clearField = new JButton("Clear Field");
       
       clearField.addActionListener(new ActionListener() {
@@ -286,13 +354,13 @@ public class ScheduleBuilderGUI {
         @Override
         public void actionPerformed(ActionEvent arg0) {
           //GET SELECTED ROW
-          newTable.removeEditor();
-          newTable.removeColumnSelectionInterval(0, newTable.getColumnCount() - 1);
-          newTable.removeRowSelectionInterval(0, newTable.getRowCount() - 1);
-          for(int i=0;i<newTable.getRowCount();i++)
+          scheduleTable.removeEditor();
+          scheduleTable.removeColumnSelectionInterval(0, scheduleTable.getColumnCount() - 1);
+          scheduleTable.removeRowSelectionInterval(0, scheduleTable.getRowCount() - 1);
+          for(int i=0;i<scheduleTable.getRowCount();i++)
           {
-            newTable.setValueAt(new String(),i, 1);
-            newTable.setValueAt(false, i, 2);
+            scheduleTable.setValueAt(new String(),i, 1);
+            scheduleTable.setValueAt(false, i, 2);
           }
           
           notes.setText(new String());
@@ -300,12 +368,9 @@ public class ScheduleBuilderGUI {
         }
       });
       clearField.setSize(20, 20);
-      
       clearField.setAlignmentX(Component.CENTER_ALIGNMENT);
-      //clearField.setBorder(new EmptyBorder(20, 5, 20, 20));
       
-      southPanel.add(clearField);
-      
+      southPanel.add(clearField);   
       
       p2.add(southPanel, BorderLayout.SOUTH);
     }
@@ -569,9 +634,11 @@ public class ScheduleBuilderGUI {
 	}	
 
 	
-	// Main
-	public static void main(String[] args) {
-		GUI();
-	}
+    // Main
+    public static void main(String[] args) throws IOException {
+      toRun.GUI();
+      toRun.getPreference();         
+    }
+
 
 }
