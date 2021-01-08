@@ -3,7 +3,7 @@ package runner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ScheduleFeature extends Programs {
+public class ScheduleFeature{
       
       public JTable getTableModel() {
         //THE TABLE
@@ -73,12 +73,9 @@ public class ScheduleFeature extends Programs {
        
        table.getColumnModel().getColumn(1).setPreferredWidth(300);
        table.setSelectionMode(0);
+       table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+       
        return table;
       }
       
-	  @Override
-	  public void runProgram() {
-	    // TODO Auto-generated method stub
-	  }
-
 }
