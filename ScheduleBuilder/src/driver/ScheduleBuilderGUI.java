@@ -467,13 +467,13 @@ public class ScheduleBuilderGUI {
     hourLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
     JButton enterBtn = new JButton("Enter");
-    enterBtn.setBounds(363, 114, 81, 35);
+    enterBtn.setBounds(370, 114, 81, 35);
     timerInfoPanel.add(enterBtn);
     enterBtn.setFont(new Font("Tahoma", Font.PLAIN, 15));
     enterBtn.setMaximumSize(new Dimension(75, 35));
 
     JTextField enterMin = new JTextField("MM");
-    enterMin.setBounds(233, 114, 100, 35);
+    enterMin.setBounds(240, 114, 100, 35);
     timerInfoPanel.add(enterMin);
     enterMin.setFont(new Font("Tahoma", Font.PLAIN, 15));
     enterMin.setHorizontalAlignment(SwingConstants.CENTER);
@@ -481,7 +481,7 @@ public class ScheduleBuilderGUI {
     timerF.setTextFieldFocus(enterMin, "MM");
 
     JTextField enterSec = new JTextField("SS");
-    enterSec.setBounds(233, 160, 100, 35);
+    enterSec.setBounds(240, 160, 100, 35);
     timerInfoPanel.add(enterSec);
     enterSec.setFont(new Font("Tahoma", Font.PLAIN, 15));
     enterSec.setHorizontalAlignment(SwingConstants.CENTER);
@@ -489,7 +489,7 @@ public class ScheduleBuilderGUI {
     timerF.setTextFieldFocus(enterSec, "SS");
 
     JTextField enterHour = new JTextField("HH");
-    enterHour.setBounds(233, 68, 100, 35);
+    enterHour.setBounds(240, 68, 100, 35);
     timerInfoPanel.add(enterHour);
     enterHour.setFont(new Font("Tahoma", Font.PLAIN, 15));
     enterHour.setHorizontalAlignment(JTextField.CENTER);
