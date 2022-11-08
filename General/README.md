@@ -1,1 +1,1 @@
-A Java Utility App with features including: modifiable timetable, timer/stopwatch
+A Java Utility App with the following features: calendar, schedule, stopwatch, timer.
