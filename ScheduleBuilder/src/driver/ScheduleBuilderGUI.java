@@ -274,7 +274,7 @@ public class ScheduleBuilderGUI {
     version.setAlignmentX(Component.CENTER_ALIGNMENT);
     version.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-    JLabel copyright = new JLabel("Copyright © 2020. Schedule Builder.");
+    JLabel copyright = new JLabel("Copyright 2020. Schedule Builder.");
     copyright.setAlignmentX(Component.CENTER_ALIGNMENT);
     copyright.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
